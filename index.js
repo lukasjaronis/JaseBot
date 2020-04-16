@@ -1,7 +1,11 @@
 const { Client } = require("discord.js");
-require("dotenv").config();
+const { config } = require("dotenv");
 
 const client = new Client({});
+
+config({
+  path: __dirname + "/.env",
+});
 
 client.on("Ready", () => {
   console.log(`Creating chemicals... ${bot.user.username}`);
