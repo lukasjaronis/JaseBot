@@ -4,7 +4,7 @@ require("dotenv").config();
 const client = new Client({});
 
 client.on("Ready", () => {
-  console.log("I'm online");
+  console.log(`Creating chemicals... ${bot.user.username}`);
 });
 
-client.login("NzAwNDYxNTY4ODkwMjQxMDM1.XpjcUQ.fSjECf9uR70Gn8ju-cgs_mM9aCY");
+client.login(process.env.TOKEN);
