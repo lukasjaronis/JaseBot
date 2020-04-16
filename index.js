@@ -25,4 +25,4 @@ client.on("message", async (message) => {
   console.log(`${message.author.user} said ${message.content}`);
 });
 
-client.login(process.env.TOKEN);
+client.login("NzAwNDYxNTY4ODkwMjQxMDM1.XpjcDA.snfenoOOvwRxqrn65TejYg0jB2A");
