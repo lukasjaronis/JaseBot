@@ -9,8 +9,16 @@ config({
   path: __dirname + "/.env",
 });
 
-client.on("Ready", () => {
-  console.log(`Creating chemicals... ${bot.user.username}`);
+client.on("ready", () => {
+  console.log(`${bot.user.username} has spawned!`);
+
+  client.user.setPresence({
+    status: "online",
+    game: {
+      name: "Creating chemicals...",
+      type: "WATCHING",
+    },
+  });
 });
 
 console.log(process.env.TOKEN);
