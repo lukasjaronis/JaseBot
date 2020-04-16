@@ -9,7 +9,7 @@ config({
   path: __dirname + "/.env",
 });
 
-client.off("ready", () => {
+client.on("ready", () => {
   console.log(`${client.user.username} has spawned!`);
 
   client.user.setPresence({
