@@ -10,7 +10,7 @@ config({
 });
 
 client.on("ready", () => {
-  console.log(`${bot.user.username} has spawned!`);
+  console.log(`${client.user.username} has spawned!`);
 
   client.user.setPresence({
     status: "online",
