@@ -12,7 +12,7 @@ config({
 client.on("ready", () => {
   client.user.setPresence({
     game: { name: "with discord.js" },
-    status: "busy",
+    status: "online",
   });
   console.log(`${client.user.username} is up and running!`);
 });
