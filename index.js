@@ -10,16 +10,11 @@ config({
 });
 
 client.on("ready", () => {
-  console.log(`${client.user.username} has spawned!`);
-
   client.user.setPresence({
-    game: {
-      name: "Developing",
-      type: "STREAMING",
-      url: "https://www.twitch.tv/tastejase",
-    },
+    game: { name: "with discord.js" },
     status: "busy",
   });
+  console.log(`${client.user.username} is up and running!`);
 });
 
 client.on("message", async (message) => {
