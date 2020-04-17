@@ -14,7 +14,7 @@ const client = new Discord.Client({
 
 client.commands = new Discord.Collection();
 const commandFiles = fs
-  .readFileSync("./commands")
+  .readdirSync("./commands")
   .filter((file) => file.endWith(".js"));
 
 for (const file of commandFiles) {
