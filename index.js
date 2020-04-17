@@ -13,16 +13,16 @@ client.on("ready", () => {
   console.log(`${client.user.username} has spawned!`);
 
   client.user.setPresence({
-    status: "online",
     game: {
-      name: "Creating chemicals...",
+      name: "my code",
       type: "WATCHING",
     },
+    status: "idle",
   });
 });
 
 client.on("message", async (message) => {
-  console.log(`${message.author.user} said ${message.content}`);
+  console.log(`${message.author.username} said ${message.content}`);
 });
 
-client.login("NzAwNDYxNTY4ODkwMjQxMDM1.XpjcDA.snfenoOOvwRxqrn65TejYg0jB2A");
+client.login(process.env.TOKEN);
