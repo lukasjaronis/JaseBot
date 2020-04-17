@@ -1,23 +1,42 @@
-const { Client } = require("discord.js");
+const fs = require("fs");
+const Discord = require("discord.js");
 const { config } = require("dotenv");
+const { prefix } = require("./config.json");
 
-const client = new Client({
-  disableEveryone: true,
-});
-
+// ENV
 config({
   path: __dirname + "/.env",
 });
 
-client.on("ready", () => {
-  client.user.setActivity("my code", {
-    type: "STREAMING",
-    url: "https://www.twitch.tv/tastejase",
-  });
+const client = new Discord.Client({
+  disableEveryone: false,
 });
 
-client.on("message", async (message) => {
-  console.log(`${message.author.username} said ${message.content}`);
+client.commands = new Discord.Collection();
+const commandFiles = fs
+  .readFileSync("./commands")
+  .filter((file) => file.endWith(".js"));
+
+for (const file of commandFiles) {
+  const command = require(`./commands/${file}`);
+  client.commands.set(command.name, command);
+}
+
+client.once("ready", () => {
+  console.log("Bot online");
+});
+
+client.on("message", (message) => {
+  if (!message.content.startsWith(prefix) || message.author.bot) return;
+
+  const args = message.content.slice(prefix.length).split(/ +/);
+  const command = args.shift().toLowerCase();
+
+  if (command === "ping") {
+    message.channel.send(
+      `Your username: ${message.author.username}\nYour ID: ${message.author.id}`
+    );
+  }
 });
 
 client.login(process.env.TOKEN);

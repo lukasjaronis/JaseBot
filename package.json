@@ -19,6 +19,7 @@
   "homepage": "https://github.com/lukasjaronis/JaseBot#readme",
   "dependencies": {
     "discord.js": "^12.1.1",
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "fs": "0.0.1-security"
   }
 }
