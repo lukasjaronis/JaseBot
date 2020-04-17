@@ -32,10 +32,15 @@ client.on("message", (message) => {
   const args = message.content.slice(prefix.length).split(/ +/);
   const command = args.shift().toLowerCase();
 
-  if (command === "ping") {
+  // Grabbing Jase role
+  let jaseRole = message.guild.roles.find((role) => role.name === "Jase");
+
+  if (command === "online" && jaseRole) {
     message.channel.send(
       `Your username: ${message.author.username}\nYour ID: ${message.author.id}`
     );
+  } else {
+    message.channel.send(`Sorry you do not have permission for this!`);
   }
 });
 
