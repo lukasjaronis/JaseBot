@@ -14,10 +14,11 @@ client.on("ready", () => {
 
   client.user.setPresence({
     game: {
-      name: "my code",
-      type: "WATCHING",
+      name: "Developing",
+      type: "STREAMING",
+      url: "https://www.twitch.tv/tastejase",
     },
-    status: "idle",
+    status: "busy",
   });
 });
 
