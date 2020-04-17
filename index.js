@@ -1,17 +1,15 @@
 const fs = require("fs");
 const Discord = require("discord.js");
 const { config } = require("dotenv");
-const { prefix } = require("./config.json");
+const client = new Discord.Client();
+module.exports = client;
 
 // ENV
 config({
   path: __dirname + "/.env",
 });
 
-const client = new Discord.Client({
-  disableEveryone: false,
-});
-
+// turns commands folder into the command collection
 client.commands = new Discord.Collection();
 const commandFiles = fs
   .readdirSync("./commands")
@@ -24,24 +22,6 @@ for (const file of commandFiles) {
 
 client.once("ready", () => {
   console.log("Bot online");
-});
-
-client.on("message", (message) => {
-  if (!message.content.startsWith(prefix) || message.author.bot) return;
-
-  const args = message.content.slice(prefix.length).split(/ +/);
-  const command = args.shift().toLowerCase();
-
-  // Grabbing Jase role
-  let jaseRole = message.guild.roles.find((role) => role.name === "Jase");
-
-  if (command === "online" && jaseRole) {
-    message.channel.send(
-      `Your username: ${message.author.username}\nYour ID: ${message.author.id}`
-    );
-  } else {
-    message.channel.send(`Sorry you do not have permission for this!`);
-  }
 });
 
 client.login(process.env.TOKEN);
