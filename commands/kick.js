@@ -33,7 +33,7 @@ client.on("message", async (message) => {
                 return message.reply("sorry, I couldn't find that user")
             } else {
                let msg = kickEmbed('Kicked', '#F2E6A7', person.user.tag, reason)
-                message.channel.send(msg)
+               message.guild.member(person).kick(msg)
             }
         } else {
             return message.reply('You do not have this permission!')
