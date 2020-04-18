@@ -12,12 +12,13 @@ const kickEmbed = (description, setColor, user, reason) => {
 }
 
 // message embed for ban command
-const banEmbed = (description, setColor, user, reason) => {
+const banEmbed = (description, setColor, user, reason, days) => {
   return new Discord.MessageEmbed()
  .setDescription(description)
  .setColor(setColor)
  .addField(`Banned User`, user)
  .addField(`Reason`, reason)
+ .addField('Days', days)
  .setThumbnail('https://media1.giphy.com/media/BT4ygwV9vgwAU/giphy.gif?cid=ecf05e47ce1f48adda4cff78d01d1438352cf8c709ccadf6&rid=giphy.gif')
  .setTimestamp()
 }

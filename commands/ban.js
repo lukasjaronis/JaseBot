@@ -2,8 +2,6 @@ const client = require("../index");
 const { prefix } = require("../config.json");
 const banEmbed = require('../utils/messageEmbeds');
 
-// To do: Add timer to ban
-
 client.on("message", async (message) => {
     if (!message.content.startsWith(prefix) || message.author.bot) return;
   
@@ -19,23 +17,25 @@ client.on("message", async (message) => {
             let classGuild = message.guild.member(message.mentions.members.first())
             let adminPermissionsCheck = classGuild.hasPermission("ADMINISTRATOR");
     
-            let reason = args[1]
+            let reason = args[2]
+            let days = args[1]
     
             // checking to see if tagged user has adminstrator permissions
             if (adminPermissionsCheck) {
                 return message.reply("You can't ban an adminstrator!")
             }
     
-            if (!reason) {
-                return message.reply("You have to provide a reason for the kick!")
+            if (!reason || !days) {
+                return message.reply("You have to provide a reason for the kick or the amount of days. [!ban @user days reason]")
             }
     
             // checking if the person is in our discord
             if (!person) {
                 return message.reply("sorry, can't find that user!")
             } else {
-               let msg = banEmbed('Ban', '#F2E6A7', person.user.tag, reason)
-               message.guild.member(person).ban(msg)
+               let msg = banEmbed('Ban', '#F2E6A7', person.user.tag, reason, days)
+               message.guild.member(person).ban({ days: days, reason: `Reason: ${reason} | Days ${days}` })
+               message.channel.send(msg)
             }
         } else {
             return message.reply("You can't do that!")
