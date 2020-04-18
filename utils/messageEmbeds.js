@@ -6,7 +6,7 @@ const kickEmbed = (description, setColor, user, reason) => {
     .setColor(setColor)
     .addField(`Kicked User`, user)
     .addField(`Reason`, reason)
-    .setThumbnail('https://media1.giphy.com/media/3o7WTpglMq3tlsJb9K/giphy.gif?cid=ecf05e47adb36e11e3c94d0454cac2b0cb98cceb6ed76d35&rid=giphy.gif')
+    .setThumbnail('https://media0.giphy.com/media/gjfbSsz2EnNMLpRyqb/giphy.gif?cid=ecf05e47fbef57d1f1ddc3d684080c0391f8dfb3753a2aad&rid=giphy.gif')
     .setTimestamp()
 }
 
