@@ -22,6 +22,12 @@ for (const file of commandFiles) {
 
 client.once("ready", () => {
   console.log("Bot online");
+  client.user
+  .setActivity("netflix", { type: "WATCHING" })
+  .then((presence) =>
+    console.log(`Activity set to ${presence.activities[0].name}`)
+  )
+  .catch(console.error);
 });
 
 client.on('guildMemberAdd', async (guildMember) => {
