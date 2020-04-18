@@ -1,6 +1,8 @@
 const client = require("../index");
 const { prefix } = require("../config.json");
-const kickEmbed = require('../utils/messageEmbeds');
+const banEmbed = require('../utils/messageEmbeds');
+
+// To do: Add timer to ban
 
 client.on("message", async (message) => {
     if (!message.content.startsWith(prefix) || message.author.bot) return;
@@ -11,7 +13,7 @@ client.on("message", async (message) => {
     let adminRole = await message.guild.roles.fetch("700888529000988683");
     let getID = adminRole.id;
 
-    if (command === "kick") {
+    if (command === "ban") {
         if (message.member.roles.cache.has(getID)) {
             let person = message.guild.member(message.mentions.users.first())
             let classGuild = message.guild.member(message.mentions.members.first())
@@ -21,7 +23,7 @@ client.on("message", async (message) => {
     
             // checking to see if tagged user has adminstrator permissions
             if (adminPermissionsCheck) {
-                return message.reply("You can't kick an adminstrator!")
+                return message.reply("You can't ban an adminstrator!")
             }
     
             if (!reason) {
@@ -32,8 +34,8 @@ client.on("message", async (message) => {
             if (!person) {
                 return message.reply("sorry, can't find that user!")
             } else {
-               let msg = kickEmbed('Kicked', '#F2E6A7', person.user.tag, reason)
-               message.guild.member(person).kick(msg)
+               let msg = banEmbed('Ban', '#F2E6A7', person.user.tag, reason)
+               message.guild.member(person).ban(msg)
             }
         } else {
             return message.reply("You can't do that!")

@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 
+// message embed for kick command
 const kickEmbed = (description, setColor, user, reason) => {
      return new Discord.MessageEmbed()
     .setDescription(description)
@@ -10,4 +11,18 @@ const kickEmbed = (description, setColor, user, reason) => {
     .setTimestamp()
 }
 
-  module.exports = kickEmbed
+// message embed for ban command
+const banEmbed = (description, setColor, user, reason) => {
+  return new Discord.MessageEmbed()
+ .setDescription(description)
+ .setColor(setColor)
+ .addField(`Banned User`, user)
+ .addField(`Reason`, reason)
+ .setThumbnail('https://media1.giphy.com/media/BT4ygwV9vgwAU/giphy.gif?cid=ecf05e47ce1f48adda4cff78d01d1438352cf8c709ccadf6&rid=giphy.gif')
+ .setTimestamp()
+}
+
+
+
+
+  module.exports = (kickEmbed, banEmbed)
