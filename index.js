@@ -24,4 +24,9 @@ client.once("ready", () => {
   console.log("Bot online");
 });
 
+client.on('guildMemberAdd', async (guildMember) => {
+  let regularRole = await guildMember.guild.roles.fetch('700888461380550656');
+  guildMember.roles.add(regularRole.id, 'New Member')
+})
+
 client.login(process.env.TOKEN);

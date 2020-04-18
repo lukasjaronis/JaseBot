@@ -8,12 +8,12 @@ client.on("message", async (message) => {
   const command = args.shift().toLowerCase();
 
   // Fetching the role and awaiting the promise
-  let JaseRole = await message.guild.roles.fetch("700754612138934502");
+  let JaseRole = await message.guild.roles.fetch("700887245514866698");
   let getID = JaseRole.id;
 
   // Finding the channel
-  let findChannel = client.channels.cache.find((ch) => ch.name === "sauti");
-  let sauti = findChannel.id;
+  let findChannel = client.channels.cache.find((ch) => ch.name === "stream-info");
+  let streamInfo = findChannel.id;
 
   if (command === "offline") {
     if (message.member.roles.cache.has(getID)) {
@@ -23,7 +23,7 @@ client.on("message", async (message) => {
           console.log(`Activity set to ${presence.activities[0].name}`)
         )
         .catch(console.error);
-      client.channels.cache.get(`${sauti}`).send("Jason stopped streaming.");
+      client.channels.cache.get(`${streamInfo}`).send("Jason is no longer live.");
 
       // Getting user ID
       getUserID = message.member.user.id;
@@ -53,8 +53,20 @@ client.on("message", async (message) => {
 
       // Finally delete these messages
       message.delete({ timeout: 800 });
+
+      // Get info of stream-info and handle message deletions
+      let getStreamInfo = client.channels.cache.get('700889883056799854')
+      await getStreamInfo.messages.fetch({ limit: 30 }).then(collected => {
+        collected.forEach(msg => {
+          if (msg.content.startsWith('@everyone')) {
+            msg.delete()
+          }
+        })
+      })
+
     } else {
-      message.channel.send("Sorry, you don't have permissions for that!");
+      message.author.send("Sorry, you don't have permissions for that!");
+      message.delete()
     }
   }
 });

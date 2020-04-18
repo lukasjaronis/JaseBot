@@ -8,14 +8,14 @@ client.on("message", async (message) => {
   const command = args.shift().toLowerCase();
 
   // Fetching the role and awaiting the promise
-  let JaseRole = await message.guild.roles.fetch("700754612138934502");
+  let JaseRole = await message.guild.roles.fetch("700887245514866698");
   let getID = JaseRole.id;
 
   // Finding the channel
-  let findChannel = client.channels.cache.find((ch) => ch.name === "sauti");
-  let sauti = findChannel.id;
+  let findChannel = client.channels.cache.find((ch) => ch.name === "stream-info");
+  let streamInfo = findChannel.id;
 
-  if (command === "online") {
+  if (command === "live") {
     if (message.member.roles.cache.has(getID)) {
       client.user
         .setActivity(`twitch`, {
@@ -27,8 +27,8 @@ client.on("message", async (message) => {
         )
         .catch(console.error);
       client.channels.cache
-        .get(`${sauti}`)
-        .send("@everyone Jason is streaming! https://www.twitch.tv/tastejase");
+        .get(`${streamInfo}`)
+        .send("@everyone Jason is live! https://www.twitch.tv/tastejase");
 
       // Getting user ID
       getUserID = message.member.user.id;
@@ -53,13 +53,25 @@ client.on("message", async (message) => {
       });
 
       // Filter through them
-      let filterEM = fetchMsgMap.filter((item) => item === "online");
+      let filterEM = fetchMsgMap.filter((item) => item === "live");
       console.log(filterEM);
 
       // Finally delete these messages
       message.delete({ timeout: 800 });
+
+         // Get info of stream-info and handle message deletions
+         let getStreamInfo = client.channels.cache.get('700889883056799854')
+         await getStreamInfo.messages.fetch({ limit: 30 }).then(collected => {
+           collected.forEach(msg => {
+             if (msg.content.startsWith('Jason')) {
+               msg.delete()
+             }
+           })
+         })
+
     } else {
-      message.channel.send("Sorry, you don't have permissions for that!");
+      message.author.send("Sorry, you don't have permissions for that!");
+      message.delete()
     }
   }
 });
