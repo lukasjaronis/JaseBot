@@ -38,7 +38,7 @@ client.on("message", async (message) => {
         .fetch({ limit: 5 })
         .then((msg) => {
           return msg;
-        });
+        }).catch(error => console.log(error));
 
       // Mapping it out, slicing it up, and shifting it out of the array
       fetchMsgMap = fetchMsg.map((item) => {
@@ -62,7 +62,7 @@ client.on("message", async (message) => {
             msg.delete()
           }
         })
-      })
+      }).catch(error => console.log(error))
 
     } else {
       message.author.send("Sorry, you don't have permissions for that!");
