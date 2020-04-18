@@ -1,6 +1,6 @@
 const client = require("../index");
 const { prefix } = require("../config.json");
-const ms = require('ms');
+const kickEmbed = require('../utils/messageEmbeds');
 
 client.on("message", async (message) => {
     if (!message.content.startsWith(prefix) || message.author.bot) return;
@@ -10,47 +10,34 @@ client.on("message", async (message) => {
 
     let adminRole = await message.guild.roles.fetch("700888529000988683");
     let getID = adminRole.id;
-  
-      // Fetching the role and awaiting the promise
-    let mainRole = await message.guild.roles.fetch('700888461380550656')
-    let muteRole = await message.guild.roles.fetch("700888264575418378");
 
-    if (command === "mute") {
+    if (command === "kick") {
         if (message.member.roles.cache.has(getID)) {
             let person = message.guild.member(message.mentions.users.first())
             let classGuild = message.guild.member(message.mentions.members.first())
             let adminPermissionsCheck = classGuild.hasPermission("ADMINISTRATOR");
     
+            let reason = args[1]
+    
             // checking to see if tagged user has adminstrator permissions
             if (adminPermissionsCheck) {
-                return message.reply("You can't mute an adminstrator!")
+                return message.reply("You can't kick an adminstrator!")
+            }
+    
+            if (!reason) {
+                return message.reply("You have to provide a reason for the kick!")
             }
     
             // checking if the person is in our discord
             if (!person) {
                 return message.reply("sorry, I couldn't find that user")
             } else {
-            let time = args[1];
-    
-            if (!time) {
-                return message.reply("You didn't specify a time!")
-            }
-    
-            // removing the main role
-            person.roles.remove(mainRole)
-            // adding the mute role    
-            person.roles.add(muteRole)
-            message.channel.send("<@" + person.user.id + ">" + ` has been muted for. ${ms(ms(time))}`)
-    
-            
-            setTimeout(function() {
-                person.roles.add(mainRole);
-                person.roles.remove(muteRole);
-                message.channel.send("<@" + person.user.id + ">" + " has been unmuted.")
-            }, ms(time))
+               let msg = kickEmbed('Kicked', '#F2E6A7', person.user.tag, reason)
+                message.channel.send(msg)
             }
         } else {
-            message.reply('You do not have this permission!')
+            return message.reply('You do not have this permission!')
         }
+
     } 
   });
