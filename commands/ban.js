@@ -20,23 +20,16 @@ client.on("message", async (message) => {
             let adminPermissionsCheck = classGuild.hasPermission("ADMINISTRATOR");
     
             let reason = args[2]
-            let days = args[1]
-    
+            let days = parseInt(args[1])
+
             // checking to see if tagged user has adminstrator permissions
             if (adminPermissionsCheck) {
                 return message.reply("You can't ban an adminstrator!")
             }
     
             if (!reason || !days) {
-                return message.reply("You have to provide a reason for the kick or the amount of days. [!ban @user days reason]")
-            }
-            
-            // Check if days is a string
-            // If days is not a string check if days is a whole number
-            // If its not a whole integer return
-            // If days is not a string and is a whole number we ignore this if statement
-            if (typeof(days) === 'string' && (days % 1 === 0)) {
-                return message.reply("days has to be an integer!")
+                message.reply("You have to provide a reason for the kick or the amount of days. [!ban @user days reason]")
+                message.delete(msg)
             }
     
             // checking if the person is in our discord

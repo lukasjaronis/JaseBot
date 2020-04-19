@@ -8,21 +8,31 @@ client.on("message", async (message) => {
   const command = args.shift().toLowerCase();
 
   // Fetching the role and awaiting the promise
-  let JaseRole = await message.guild.roles.fetch("700887245514866698");
+  let JaseRole = await message.guild.roles.fetch("700887245514866698").catch(error => console.log(error));
+  let botMechanicRole = await message.guild.roles.fetch("700888657976098847").catch(error => console.log(error));
+  let getBotMechanicID = botMechanicRole.id
   let getID = JaseRole.id;
 
   // Finding the channel
   let findChannel = client.channels.cache.find((ch) => ch.name === "stream-info");
   let streamInfo = findChannel.id;
 
+  let activity = args[0]
+  console.log(activity)
+
   if (command === "offline") {
-    if (message.member.roles.cache.has(getID)) {
+    if (message.member.roles.cache.has(getID) || message.member.roles.cache.has(getBotMechanicID)) {
       client.user
-        .setActivity("the den", { type: "WATCHING" })
+        .setActivity(`${activity}`, { type: "WATCHING" })
         .then((presence) =>
           console.log(`Activity set to ${presence.activities[0].name}`)
         )
         .catch(console.error);
+
+        if (!activity) {
+          message.author.send('You need to include the activity with the command! [!offline activity]')
+        }
+
       client.channels.cache.get(`${streamInfo}`).send("Jason is no longer live.");
 
       // Getting user ID
