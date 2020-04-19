@@ -28,6 +28,10 @@ client.on("message", async (message) => {
             if (!reason || !days) {
                 return message.reply("You have to provide a reason for the kick or the amount of days. [!ban @user days reason]")
             }
+
+            if (typeof(days) === 'string') {
+                return message.reply("days has to be an integer!")
+            }
     
             // checking if the person is in our discord
             if (!person) {
