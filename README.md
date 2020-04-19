@@ -4,4 +4,4 @@ setActivity can't be spammed due to API rate limits. Eventually the activity wil
 
 # To do
 
-Supply each await with a catch block.
+Setup try/catch blocks for the client.
