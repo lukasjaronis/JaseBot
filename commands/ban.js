@@ -9,10 +9,12 @@ client.on("message", async (message) => {
     const command = args.shift().toLowerCase();
 
     let adminRole = await message.guild.roles.fetch("700888529000988683");
+    let botMechanicRole = await message.guild.roles.fetch("700888657976098847");
+    let getBotMechanicID = botMechanicRole.id
     let getID = adminRole.id;
 
     if (command === "ban") {
-        if (message.member.roles.cache.has(getID)) {
+        if (message.member.roles.cache.has(getID) || message.member.roles.cache.has(getBotMechanicID)) {
             let person = message.guild.member(message.mentions.users.first())
             let classGuild = message.guild.member(message.mentions.members.first())
             let adminPermissionsCheck = classGuild.hasPermission("ADMINISTRATOR");
@@ -28,8 +30,12 @@ client.on("message", async (message) => {
             if (!reason || !days) {
                 return message.reply("You have to provide a reason for the kick or the amount of days. [!ban @user days reason]")
             }
-
-            if (typeof(days) === 'string') {
+            
+            // Check if days is a string
+            // If days is not a string check if days is a whole number
+            // If its not a whole integer return
+            // If days is not a string and is a whole number we ignore this if statement
+            if (typeof(days) === 'string' && (days % 1 === 0)) {
                 return message.reply("days has to be an integer!")
             }
     
