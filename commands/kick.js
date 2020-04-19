@@ -8,7 +8,7 @@ client.on("message", async (message) => {
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
 
-    let adminRole = await message.guild.roles.fetch("700888529000988683");
+    let adminRole = await message.guild.roles.fetch("700888529000988683").catch(error => console.log(`adminRole error: ${error}`));
     let getID = adminRole.id;
 
     if (command === "kick") {
@@ -40,4 +40,4 @@ client.on("message", async (message) => {
         }
 
     } 
-  });
+  }).catch(error => console.log(`kick command ${error}`));

@@ -8,8 +8,8 @@ client.on("message", async (message) => {
   const command = args.shift().toLowerCase();
 
   // Fetching the role and awaiting the promise
-  let JaseRole = await message.guild.roles.fetch("700887245514866698").catch(error => console.log(error));
-  let botMechanicRole = await message.guild.roles.fetch("700888657976098847").catch(error => console.log(error));
+  let JaseRole = await message.guild.roles.fetch("700887245514866698").catch(error => console.log(`JaseRole error: ${error}`));
+  let botMechanicRole = await message.guild.roles.fetch("700888657976098847").catch(error => console.log(`botMechanicRole error: ${error}`));
   let getBotMechanicID = botMechanicRole.id
   let getID = JaseRole.id;
 
@@ -48,7 +48,7 @@ client.on("message", async (message) => {
         .fetch({ limit: 5 })
         .then((msg) => {
           return msg;
-        }).catch(error => console.log(error));
+        }).catch(error => console.log(`offline command, fetchmsg catch: `, error));
 
       // Mapping it out, slicing it up, and shifting it out of the array
       fetchMsgMap = fetchMsg.map((item) => {
@@ -72,11 +72,11 @@ client.on("message", async (message) => {
             msg.delete()
           }
         })
-      }).catch(error => console.log(error))
+      }).catch(error => console.log(`offline cmd, getStreamInfo fetch`, error))
 
     } else {
       message.author.send("Sorry, you don't have permissions for that!");
       message.delete()
     }
   }
-});
+}).catch(error => console.log(`offline command ${error}`));

@@ -31,7 +31,7 @@ client.once("ready", () => {
 });
 
 client.on('guildMemberAdd', async (guildMember) => {
-  let regularRole = await guildMember.guild.roles.fetch('700888461380550656');
+  let regularRole = await guildMember.guild.roles.fetch('700888461380550656').catch(error => console.log(`guildMemberAdd error: ${error}`));
   guildMember.roles.add(regularRole.id, 'New Member')
 })
 

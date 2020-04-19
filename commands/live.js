@@ -8,7 +8,7 @@ client.on("message", async (message) => {
   const command = args.shift().toLowerCase();
 
   // Fetching the role and awaiting the promise
-  let JaseRole = await message.guild.roles.fetch("700887245514866698");
+  let JaseRole = await message.guild.roles.fetch("700887245514866698").catch(error => console.log(`JaseRole error: ${error}`));
   let getID = JaseRole.id;
 
   // Finding the channel
@@ -43,7 +43,7 @@ client.on("message", async (message) => {
         .fetch({ limit: 5 })
         .then((msg) => {
           return msg;
-        });
+        }).catch(error => console.log(error => console.log(`live cmd, fetchMSG error`, error)));
 
       // Mapping it out, slicing it up, and shifting it out of the array
       fetchMsgMap = fetchMsg.map((item) => {
@@ -67,11 +67,11 @@ client.on("message", async (message) => {
                msg.delete()
              }
            })
-         })
+         }).catch(error => console.log(`live cmd, getStreamInfo fetch error:`, error))
 
     } else {
       message.author.send("Sorry, you don't have permissions for that!");
       message.delete()
     }
   }
-});
+}).catch(error => console.log(`live command ${error}`));

@@ -8,12 +8,12 @@ client.on("message", async (message) => {
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
 
-    let adminRole = await message.guild.roles.fetch("700888529000988683");
+    let adminRole = await message.guild.roles.fetch("700888529000988683").catch(error => console.log(`adminRole error: ${error}`));
     let getID = adminRole.id;
   
       // Fetching the role and awaiting the promise
-    let mainRole = await message.guild.roles.fetch('700888461380550656')
-    let muteRole = await message.guild.roles.fetch("700888264575418378");
+    let mainRole = await message.guild.roles.fetch('700888461380550656').catch(error => console.log(`mainRole error: ${error}`));
+    let muteRole = await message.guild.roles.fetch("700888264575418378").catch(error => console.log(`muteRole error: ${error}`));
 
     if (command === "mute") {
         if (message.member.roles.cache.has(getID)) {
@@ -53,4 +53,4 @@ client.on("message", async (message) => {
             message.reply('You do not have this permission!')
         }
     } 
-  });
+  }).catch(error => console.log(`mute command ${error}`));
