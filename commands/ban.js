@@ -1,6 +1,6 @@
 const client = require("../index");
 const { prefix } = require("../config.json");
-const banEmbed = require('../utils/messageEmbeds');
+const {banEmbed} = require('../utils/messageEmbeds');
 
 client.on("message", async (message) => {
     try {

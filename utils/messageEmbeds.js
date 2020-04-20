@@ -26,4 +26,4 @@ const banEmbed = (description, setColor, user, reason, days) => {
 
 
 
-  module.exports = (kickEmbed, banEmbed)
+  module.exports = {kickEmbed, banEmbed}
