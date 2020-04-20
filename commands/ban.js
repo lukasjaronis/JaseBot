@@ -9,13 +9,10 @@ client.on("message", async (message) => {
         const args = message.content.slice(prefix.length).split(/ +/);
         const command = args.shift().toLowerCase();
 
-        let adminRole = await message.guild.roles.fetch("700888529000988683").catch(error => console.log(`adminRole error: ${error}`));
-        let botMechanicRole = await message.guild.roles.fetch("700888657976098847").catch(error => console.log(`botMechanicRole error: ${error}`));
-        let getBotMechanicID = botMechanicRole.id
-        let getID = adminRole.id;
+        let adminCheck = accessCheck(message)
 
         if (command === "ban") {
-            if (message.member.roles.cache.has(getID) || message.member.roles.cache.has(getBotMechanicID)) {
+            if (adminCheck) {
                 let person = message.guild.member(message.mentions.users.first())
                 let classGuild = message.guild.member(message.mentions.members.first())
                 let adminPermissionsCheck = classGuild.hasPermission("ADMINISTRATOR");

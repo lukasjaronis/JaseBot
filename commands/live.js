@@ -8,16 +8,14 @@ client.on("message", async (message) => {
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
 
-    // Fetching the role and awaiting the promise
-    let JaseRole = await message.guild.roles.fetch("700887245514866698").catch(error => console.log(`JaseRole error: ${error}`));
-    let getID = JaseRole.id;
+    let adminCheck = accessCheck(message)
 
     // Finding the channel
     let findChannel = client.channels.cache.find((ch) => ch.name === "stream-info");
     let streamInfo = findChannel.id;
 
     if (command === "live") {
-      if (message.member.roles.cache.has(getID)) {
+      if (adminCheck) {
         client.user
           .setActivity(`twitch`, {
             type: "STREAMING",

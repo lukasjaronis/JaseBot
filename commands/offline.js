@@ -8,11 +8,7 @@ client.on("message", async (message) => {
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
 
-    // Fetching the role and awaiting the promise
-    let JaseRole = await message.guild.roles.fetch("700887245514866698").catch(error => console.log(`JaseRole error: ${error}`));
-    let botMechanicRole = await message.guild.roles.fetch("700888657976098847").catch(error => console.log(`botMechanicRole error: ${error}`));
-    let getBotMechanicID = botMechanicRole.id
-    let getID = JaseRole.id;
+    let adminCheck = accessCheck(message)
 
     // Finding the channel
     let findChannel = client.channels.cache.find((ch) => ch.name === "stream-info");
@@ -22,7 +18,7 @@ client.on("message", async (message) => {
     console.log(activity)
 
     if (command === "offline") {
-      if (message.member.roles.cache.has(getID) || message.member.roles.cache.has(getBotMechanicID)) {
+      if (adminCheck) {
         client.user
           .setActivity(`${activity}`, { type: "WATCHING" })
           .then((presence) =>
