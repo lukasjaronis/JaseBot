@@ -8,6 +8,7 @@ client.on("message", async (message) => {
         if (!message.content.startsWith(prefix) || message.author.bot) return;
 
         let adminCheck = accessCheck(message)
+        console.log(adminCheck)
 
         const args = message.content.slice(prefix.length).split(/ +/);
         const command = args.shift().toLowerCase();
