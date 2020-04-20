@@ -1,19 +1,20 @@
 const client = require("../index");
 const { prefix } = require("../config.json");
 const {kickEmbed} = require('../utils/messageEmbeds');
+const accessCheck = require('../permissions');
 
 client.on("message", async (message) => {
     try {
         if (!message.content.startsWith(prefix) || message.author.bot) return;
 
+        let adminCheck = accessCheck(message)
+
         const args = message.content.slice(prefix.length).split(/ +/);
         const command = args.shift().toLowerCase();
 
-        let adminRole = await message.guild.roles.fetch("700888529000988683").catch(error => console.log(`adminRole error: ${error}`));
-        let getID = adminRole.id;
 
         if (command === "kick") {
-            if (message.member.roles.cache.has(getID)) {
+            if (adminCheck) {
                 let person = message.guild.member(message.mentions.users.first())
                 let classGuild = message.guild.member(message.mentions.members.first())
                 let adminPermissionsCheck = classGuild.hasPermission("ADMINISTRATOR");
@@ -38,7 +39,7 @@ client.on("message", async (message) => {
                     message.channel.send(msg)
                 }
             } else {
-                return message.reply("You can't do that!")
+                return message.reply("you don't have permission!")
             }
 
         }
