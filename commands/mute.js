@@ -1,6 +1,7 @@
 const client = require("../index");
 const { prefix } = require("../config.json");
 const ms = require('ms');
+const accessCheck = require('../permissions');
 
 client.on("message", async (message) => {
     try {
@@ -23,7 +24,7 @@ client.on("message", async (message) => {
 
                 // checking to see if tagged user has adminstrator permissions
                 if (adminPermissionsCheck) {
-                    return message.reply("You can't mute an adminstrator!")
+                    return message.reply("you can't mute an adminstrator!")
                 }
 
                 // checking if the person is in our discord
@@ -33,7 +34,8 @@ client.on("message", async (message) => {
                     let time = args[1];
 
                     if (!time) {
-                        return message.reply("You didn't specify a time!")
+                        message.delete()
+                        return message.author.send("You didn't specify a time for the mute command! [!mute @user 10s or !mute @user 1d] where 10s = 10 seconds and 1d = 1 day")
                     }
 
                     // removing the main role
@@ -50,7 +52,7 @@ client.on("message", async (message) => {
                     }, ms(time))
                 }
             } else {
-                message.reply('You do not have this permission!')
+                message.reply("you don't have permission!")
             }
         }
     }

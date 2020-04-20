@@ -1,5 +1,6 @@
 const client = require("../index");
 const { prefix } = require("../config.json");
+const accessCheck = require('../permissions');
 
 client.on("message", async (message) => {
   try {
@@ -27,7 +28,8 @@ client.on("message", async (message) => {
           .catch(console.error);
 
         if (!activity) {
-          message.author.send('You need to include the activity with the command! [!offline activity]')
+          message.delete()
+          message.author.send('You need to include the activity with the command! [!offline activity] [!offline youtube] where the bots activity would be "Watching youtube"')
         }
 
         client.channels.cache.get(`${streamInfo}`).send("Jason is no longer live.");

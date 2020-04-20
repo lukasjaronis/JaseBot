@@ -1,5 +1,6 @@
 const client = require("../index");
 const { prefix } = require("../config.json");
+const accessCheck = require('../permissions');
 
 client.on("message", async (message) => {
   try {
