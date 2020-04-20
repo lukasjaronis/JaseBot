@@ -35,6 +35,7 @@ client.on("message", async (message) => {
                 } else {
                     let msg = kickEmbed('Kicked', '#F2E6A7', person.user.tag, reason)
                     message.guild.member(person).kick(msg)
+                    message.channel.send(msg)
                 }
             } else {
                 return message.reply("You can't do that!")
