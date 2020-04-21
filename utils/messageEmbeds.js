@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 
 // message embed for kick command
 const kickEmbed = (description, setColor, user, reason) => {
-     return new Discord.MessageEmbed()
+  return new Discord.MessageEmbed()
     .setDescription(description)
     .setColor(setColor)
     .addField(`Kicked User`, user)
@@ -14,16 +14,56 @@ const kickEmbed = (description, setColor, user, reason) => {
 // message embed for ban command
 const banEmbed = (description, setColor, user, reason, days) => {
   return new Discord.MessageEmbed()
- .setDescription(description)
- .setColor(setColor)
- .addField(`Banned User`, user)
- .addField(`Reason`, reason)
- .addField('Days', days)
- .setThumbnail('https://media1.giphy.com/media/BT4ygwV9vgwAU/giphy.gif?cid=ecf05e47ce1f48adda4cff78d01d1438352cf8c709ccadf6&rid=giphy.gif')
- .setTimestamp()
+    .setDescription(description)
+    .setColor(setColor)
+    .addField(`Banned User`, user)
+    .addField(`Reason`, reason)
+    .addField('Days', days)
+    .setThumbnail('https://media1.giphy.com/media/BT4ygwV9vgwAU/giphy.gif?cid=ecf05e47ce1f48adda4cff78d01d1438352cf8c709ccadf6&rid=giphy.gif')
+    .setTimestamp()
+}
+
+// message embed for rick command
+const rickEmbed = () => {
+  return new Discord.MessageEmbed()
+    .setTitle('Rick Commands')
+    .setDescription('The following commands are available with the Rick bot.')
+    .setColor('#87E5FF')
+    .addFields([
+      {
+        name: "**Jase**",
+        value: "`!live` - Sends a notifcation to everybody in #stream-info, sets the bots activity to streaming with your twitch linked, and deletes the command shortly after.",
+        inline: false
+      },
+      {
+        name: "**Jase**",
+        value: "`!offline activity` - Sends a message in #stream-info, sets the bots activity to whatever you decide but does NOT set the activity type (It will be, 'Watching'), and deletes the command shortly after.",
+        inline: false
+      },
+      {
+        name: "**Adminstrator**",
+        value: "`!mute @user time` - Mutes user. ~ Time: 1d, 1h, 10s, etc. (https://www.npmjs.com/package/ms)",
+        inline: false
+      },
+      {
+        name: "**Adminstrator**",
+        value: "`!kick @user reason` - Kicks user.",
+        inline: false
+      },
+      {
+        name: "**Adminstrator**",
+        value: "`!ban @user days reason` - Ban user. Days must be whole numbers and it goes by days. Example: !ban @lukas 3 abuse (This would be a 3 day ban)",
+        inline: false
+      },
+      {
+        name: "**Adminstrator**",
+        value: "`!activity activityName activityType` - Sets the bots activity. ActivityName MUST be in quotes. Example: !activity \"walking the dog\" playing ~ For activity you can only do playing, streaming, listening, or watching for the type.",
+        inline: false
+      }
+
+    ])
 }
 
 
 
-
-  module.exports = {kickEmbed, banEmbed}
+module.exports = { kickEmbed, banEmbed, rickEmbed }
