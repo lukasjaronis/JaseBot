@@ -12,11 +12,12 @@ client.on("message", async (message) => {
     let adminCheck = accessCheck(message)
     let activityName = args[0]
     let activityType = args[1]
+    let upperCaseType = activityType.toUpperCase();
 
     if (command === "activity") {
       if (adminCheck) {
         client.user
-          .setActivity(`${activityName}`, { type: `${activityType}` })
+          .setActivity(`${activityName}`, { type: `${upperCaseType}` })
           .then((presence) =>
             console.log(`Activity set to ${presence.activities[0].name}`)
           )
@@ -26,6 +27,8 @@ client.on("message", async (message) => {
           message.delete()
           message.author.send('You need to include the activity or the type with the !activity command! [!activity activity type] [!activity playing nextflix] where the bots activity would be "Playing netflix". https://discord.js.org/#/docs/main/stable/typedef/ActivityType')
         }
+        // deletes the command right after
+        message.delete()
       } else {
         message.author.send("Sorry, you don't have permissions for that!");
         message.delete()
