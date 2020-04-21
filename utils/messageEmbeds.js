@@ -59,6 +59,11 @@ const rickEmbed = () => {
         name: "**Adminstrator**",
         value: "`!activity activityName activityType` - Sets the bots activity. ActivityName MUST be in quotes. Example: !activity \"walking the dog\" playing ~ For activity you can only do playing, streaming, listening, or watching for the type.",
         inline: false
+      },
+      {
+        name: "**Adminstrator**",
+        value: "`!rick` - Brings up available rick commands",
+        inline: false
       }
 
     ])
