@@ -11,13 +11,12 @@ client.on("message", async (message) => {
     const command = args.shift().toLowerCase();
     let adminCheck = accessCheck(message)
     let activityName = args[0]
-    let activityType = args[1].toUpperCase()
-    console.log(activityName, activityType)
+    let activityType = args[1]
 
     if (command === "activity") {
       if (adminCheck) {
         client.user
-          .setActivity(`${activityName}`, { type: `${activityType}` })
+          .setActivity(`${activityName}`, { type: `${activityType.toUpperCase()}` })
           .then((presence) =>
             console.log(`Activity set to ${presence.activities[0].name}`)
           )
