@@ -24,11 +24,6 @@ client.on("message", async (message) => {
           )
           .catch(console.error);
 
-        if (!activity) {
-          message.delete()
-          message.author.send('You need to include the activity with the command! [!offline activity] [!offline youtube] where the bots activity would be "Watching youtube"')
-        }
-
         client.channels.cache.get(`${streamInfo}`).send("Jason is no longer live.");
 
         // Getting user ID
