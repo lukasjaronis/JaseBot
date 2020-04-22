@@ -37,7 +37,7 @@ const rickEmbed = () => {
       },
       {
         name: "**Jase**",
-        value: "`!offline activity` - Sends a message in #stream-info, sets the bots activity to whatever you decide but does NOT set the activity type (It will be, 'Watching'), and deletes the command shortly after.",
+        value: "`!off` - Sends a message in #stream-info, sets the bots activity to 'Watching Jason's Den', and deletes the command message shortly after.",
         inline: false
       },
       {

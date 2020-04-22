@@ -15,13 +15,10 @@ client.on("message", async (message) => {
     let findChannel = client.channels.cache.find((ch) => ch.name === "stream-info");
     let streamInfo = findChannel.id;
 
-    let activity = args[0]
-    console.log(activity)
-
-    if (command === "offline") {
+    if (command === "off") {
       if (adminCheck) {
         client.user
-          .setActivity(`${activity}`, { type: "WATCHING" })
+          .setActivity(`Jason's Den`, { type: "WATCHING" })
           .then((presence) =>
             console.log(`Activity set to ${presence.activities[0].name}`)
           )
