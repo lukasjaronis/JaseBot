@@ -12,11 +12,19 @@ client.on("message", async (message) => {
     let adminCheck = accessCheck(message)
     let activityName = args[0]
     let activityType = args[1]
+
+    let toUpperCaseType;
+    // if activity type exists
+    if (activityType !== (undefined || null)) {
+      let toUpperCaseType = activityType.toUpperCase()
+      return toUpperCaseType;
+    }
+    console.log(toUpperCaseType)
   
     if (command === "activity") {
       if (adminCheck) {
         client.user
-          .setActivity(`${activityName}`, { type: `${activityType}` })
+          .setActivity(`${activityName}`, { type: `${toUpperCaseType}` })
           .then((presence) =>
             console.log(`Activity set to ${presence.activities[0].name}`)
           )
