@@ -1,6 +1,6 @@
 const client = require("../index");
 const { prefix } = require("../config.json");
-const accessCheck = require('../permissions');
+const accessCheck = require("../permissions");
 
 client.on("message", async (message) => {
   try {
@@ -9,11 +9,11 @@ client.on("message", async (message) => {
     // Slices off prefix length
     const args = message.content.slice(prefix.length).split(/ "|" | “|” /g);
     const command = args.shift().toLowerCase();
-    let adminCheck = accessCheck(message)
-    let activityName = args[0]
-    let activityType = args[1]
+    let adminCheck = accessCheck(message);
+    let activityName = args[0];
+    let activityType = args[1];
     let toUpperCaseType = activityType.toUpperCase();
-  
+
     if (command === "activity") {
       if (adminCheck) {
         client.user
@@ -24,18 +24,19 @@ client.on("message", async (message) => {
           .catch(console.error);
 
         if (!activityName || !activityType) {
-          message.delete()
-          message.author.send('You need to include the activity or the type with the !activity command! [!activity activity type] [!activity playing nextflix] where the bots activity would be "Playing netflix". https://discord.js.org/#/docs/main/stable/typedef/ActivityType')
+          message.delete();
+          message.author.send(
+            'You need to include the activity or the type with the !activity command! [!activity activity type] [!activity playing nextflix] where the bots activity would be "Playing netflix". https://discord.js.org/#/docs/main/stable/typedef/ActivityType'
+          );
         }
         // deletes the command right after
-        message.delete()
+        message.delete();
       } else {
         message.author.send("Sorry, you don't have permissions for that!");
-        message.delete()
+        message.delete();
       }
     }
-  }
-  catch (err) {
-    console.log(err)
+  } catch (err) {
+    console.log("The error is...", err);
   }
 });
