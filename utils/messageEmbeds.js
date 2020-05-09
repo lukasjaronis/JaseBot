@@ -63,12 +63,12 @@ const cmdsEmbed = () => {
           "`!ban @user days reason` - Ban user. Days must be whole numbers and it goes by days. Example: !ban @lukas 3 abuse (This would be a 3 day ban)",
         inline: false,
       },
-      // {
-      //   name: "**Adminstrator**",
-      //   value:
-      //     '`!activity activityName activityType` - Sets the bots activity. ActivityName MUST be in quotes. Example: !activity "walking the dog" playing ~ For activity you can only do playing, streaming, listening, or watching for the type.',
-      //   inline: false,
-      // },
+      {
+        name: "**Adminstrator**",
+        value:
+          '`!activity activityName activityType` - Sets the bots activity. ActivityName MUST be in quotes. Example: !activity "walking the dog" playing ~ For activity you can only do playing, streaming, listening, or watching for the type.',
+        inline: false,
+      },
       {
         name: "**Adminstrator**",
         value: "`!cmds` - Brings up available commands",
