@@ -23,7 +23,7 @@ for (const file of commandFiles) {
 client.once("ready", () => {
   console.log("Bot online");
   client.user
-    .setActivity("Printing money", { type: "Playing" })
+    .setActivity("Admiring Space", { type: "Watching" })
     .then((presence) =>
       console.log(`Activity set to ${presence.activities[0].name}`)
     );
