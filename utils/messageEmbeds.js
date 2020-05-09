@@ -43,7 +43,7 @@ const cmdsEmbed = () => {
       {
         name: "**Jase**",
         value:
-          "`!off` - Sends a message in #stream-info, sets the bots activity to 'Watching Jason's Den', and deletes the command message shortly after.",
+          "`!off` - Sends a message in #stream-info, sets the bots activity to 'Watching Admiring Space', and deletes the command message shortly after.",
         inline: false,
       },
       {

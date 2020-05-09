@@ -1,6 +1,6 @@
 const client = require("../index");
 const { prefix } = require("../config.json");
-const accessCheck = require('../permissions');
+const accessCheck = require("../permissions");
 
 client.on("message", async (message) => {
   try {
@@ -9,22 +9,26 @@ client.on("message", async (message) => {
     const args = message.content.slice(prefix.length).split(/ "|" | “|” /g);
     const command = args.shift().toLowerCase();
 
-    let adminCheck = accessCheck(message)
+    let adminCheck = accessCheck(message);
 
     // Finding the channel
-    let findChannel = client.channels.cache.find((ch) => ch.name === "stream-info");
+    let findChannel = client.channels.cache.find(
+      (ch) => ch.name === "stream-info"
+    );
     let streamInfo = findChannel.id;
 
     if (command === "off") {
       if (adminCheck) {
         client.user
-          .setActivity(`Jason's Den`, { type: "WATCHING" })
+          .setActivity(`Admiring Space`, { type: "WATCHING" })
           .then((presence) =>
             console.log(`Activity set to ${presence.activities[0].name}`)
           )
           .catch(console.error);
 
-        client.channels.cache.get(`${streamInfo}`).send("Jason is no longer live.");
+        client.channels.cache
+          .get(`${streamInfo}`)
+          .send("Jason is no longer live.");
 
         // Getting user ID
         getUserID = message.member.user.id;
@@ -39,7 +43,10 @@ client.on("message", async (message) => {
           .fetch({ limit: 5 })
           .then((msg) => {
             return msg;
-          }).catch(error => console.log(`offline command, fetchmsg catch: `, error));
+          })
+          .catch((error) =>
+            console.log(`offline command, fetchmsg catch: `, error)
+          );
 
         // Mapping it out, slicing it up, and shifting it out of the array
         fetchMsgMap = fetchMsg.map((item) => {
@@ -56,22 +63,25 @@ client.on("message", async (message) => {
         message.delete({ timeout: 800 });
 
         // Get info of stream-info and handle message deletions
-        let getStreamInfo = client.channels.cache.get('700889883056799854')
-        await getStreamInfo.messages.fetch({ limit: 30 }).then(collected => {
-          collected.forEach(msg => {
-            if (msg.content.startsWith('@everyone')) {
-              msg.delete()
-            }
+        let getStreamInfo = client.channels.cache.get("700889883056799854");
+        await getStreamInfo.messages
+          .fetch({ limit: 30 })
+          .then((collected) => {
+            collected.forEach((msg) => {
+              if (msg.content.startsWith("@everyone")) {
+                msg.delete();
+              }
+            });
           })
-        }).catch(error => console.log(`offline cmd, getStreamInfo fetch`, error))
-
+          .catch((error) =>
+            console.log(`offline cmd, getStreamInfo fetch`, error)
+          );
       } else {
         message.author.send("Sorry, you don't have permissions for that!");
-        message.delete()
+        message.delete();
       }
     }
-  }
-  catch (err) {
-    console.log(err)
+  } catch (err) {
+    console.log(err);
   }
 });

@@ -16,6 +16,15 @@ client.on("message", async (message) => {
 
     if (command === "activity") {
       if (adminCheck) {
+        // First making sure either or is present
+        if (!activityName || !activityType) {
+          message.delete();
+          message.author.send(
+            'You need to include the activity or the type with the !activity command! [!activity activity type] [!activity playing nextflix] where the bots activity would be "Playing netflix". https://discord.js.org/#/docs/main/stable/typedef/ActivityType'
+          );
+        }
+
+        // If they are, then set the bots activity
         client.user
           .setActivity(`${activityName}`, { type: `${toUpperCaseType}` })
           .then((presence) =>
@@ -23,12 +32,6 @@ client.on("message", async (message) => {
           )
           .catch(console.error);
 
-        if (!activityName || !activityType) {
-          message.delete();
-          message.author.send(
-            'You need to include the activity or the type with the !activity command! [!activity activity type] [!activity playing nextflix] where the bots activity would be "Playing netflix". https://discord.js.org/#/docs/main/stable/typedef/ActivityType'
-          );
-        }
         // deletes the command right after
         message.delete();
       } else {
