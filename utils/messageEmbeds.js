@@ -7,9 +7,11 @@ const kickEmbed = (description, setColor, user, reason) => {
     .setColor(setColor)
     .addField(`Kicked User`, user)
     .addField(`Reason`, reason)
-    .setThumbnail('https://media0.giphy.com/media/gjfbSsz2EnNMLpRyqb/giphy.gif?cid=ecf05e47fbef57d1f1ddc3d684080c0391f8dfb3753a2aad&rid=giphy.gif')
-    .setTimestamp()
-}
+    .setThumbnail(
+      "https://media0.giphy.com/media/gjfbSsz2EnNMLpRyqb/giphy.gif?cid=ecf05e47fbef57d1f1ddc3d684080c0391f8dfb3753a2aad&rid=giphy.gif"
+    )
+    .setTimestamp();
+};
 
 // message embed for ban command
 const banEmbed = (description, setColor, user, reason, days) => {
@@ -18,57 +20,61 @@ const banEmbed = (description, setColor, user, reason, days) => {
     .setColor(setColor)
     .addField(`Banned User`, user)
     .addField(`Reason`, reason)
-    .addField('Days', days)
-    .setThumbnail('https://media1.giphy.com/media/BT4ygwV9vgwAU/giphy.gif?cid=ecf05e47ce1f48adda4cff78d01d1438352cf8c709ccadf6&rid=giphy.gif')
-    .setTimestamp()
-}
+    .addField("Days", days)
+    .setThumbnail(
+      "https://media1.giphy.com/media/BT4ygwV9vgwAU/giphy.gif?cid=ecf05e47ce1f48adda4cff78d01d1438352cf8c709ccadf6&rid=giphy.gif"
+    )
+    .setTimestamp();
+};
 
 // message embed for rick command
-const rickEmbed = () => {
+const cmdsEmbed = () => {
   return new Discord.MessageEmbed()
-    .setTitle('Rick Commands')
-    .setDescription('The following commands are available with the Rick bot.')
-    .setColor('#87E5FF')
+    .setTitle("Rick Commands")
+    .setDescription("The following commands are available with the Rick bot.")
+    .setColor("#87E5FF")
     .addFields([
       {
         name: "**Jase**",
-        value: "`!live` - Sends a notifcation to everybody in #stream-info, sets the bots activity to streaming with your twitch linked, and deletes the command shortly after.",
-        inline: false
+        value:
+          "`!live` - Sends a notifcation to everybody in #stream-info, sets the bots activity to streaming with your twitch linked, and deletes the command shortly after.",
+        inline: false,
       },
       {
         name: "**Jase**",
-        value: "`!off` - Sends a message in #stream-info, sets the bots activity to 'Watching Jason's Den', and deletes the command message shortly after.",
-        inline: false
+        value:
+          "`!off` - Sends a message in #stream-info, sets the bots activity to 'Watching Jason's Den', and deletes the command message shortly after.",
+        inline: false,
       },
       {
         name: "**Adminstrator**",
-        value: "`!mute @user time` - Mutes user. ~ Time: 1d, 1h, 10s, etc. (https://www.npmjs.com/package/ms)",
-        inline: false
+        value:
+          "`!mute @user time` - Mutes user. ~ Time: 1d, 1h, 10s, etc. (https://www.npmjs.com/package/ms)",
+        inline: false,
       },
       {
         name: "**Adminstrator**",
         value: "`!kick @user reason` - Kicks user.",
-        inline: false
+        inline: false,
       },
       {
         name: "**Adminstrator**",
-        value: "`!ban @user days reason` - Ban user. Days must be whole numbers and it goes by days. Example: !ban @lukas 3 abuse (This would be a 3 day ban)",
-        inline: false
+        value:
+          "`!ban @user days reason` - Ban user. Days must be whole numbers and it goes by days. Example: !ban @lukas 3 abuse (This would be a 3 day ban)",
+        inline: false,
       },
       {
         name: "**Adminstrator**",
-        value: "`!activity activityName activityType` - Sets the bots activity. ActivityName MUST be in quotes. Example: !activity \"walking the dog\" playing ~ For activity you can only do playing, streaming, listening, or watching for the type.",
-        inline: false
+        value:
+          '`!activity activityName activityType` - Sets the bots activity. ActivityName MUST be in quotes. Example: !activity "walking the dog" playing ~ For activity you can only do playing, streaming, listening, or watching for the type.',
+        inline: false,
       },
       {
         name: "**Adminstrator**",
-        value: "`!rick` - Brings up available rick commands",
-        inline: false
-      }
+        value: "`!cmds` - Brings up available commands",
+        inline: false,
+      },
+    ]);
+};
 
-    ])
-}
-
-
-
-module.exports = { kickEmbed, banEmbed, rickEmbed }
+module.exports = { kickEmbed, banEmbed, cmdsEmbed };

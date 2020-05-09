@@ -23,20 +23,21 @@ for (const file of commandFiles) {
 client.once("ready", () => {
   console.log("Bot online");
   client.user
-    .setActivity("Jason's Den", { type: "WATCHING" })
+    .setActivity("Printing money", { type: "Playing" })
     .then((presence) =>
       console.log(`Activity set to ${presence.activities[0].name}`)
-    )
+    );
 });
 
-client.on('guildMemberAdd', async (guildMember) => {
+client.on("guildMemberAdd", async (guildMember) => {
   try {
-    let regularRole = await guildMember.guild.roles.fetch('700888461380550656').catch(error => console.log(`guildMemberAdd error: ${error}`));
-    guildMember.roles.add(regularRole.id, 'New Member')
+    let regularRole = await guildMember.guild.roles
+      .fetch("700888461380550656")
+      .catch((error) => console.log(`guildMemberAdd error: ${error}`));
+    guildMember.roles.add(regularRole.id, "New Member");
+  } catch (err) {
+    console.log(err);
   }
-  catch (err) {
-    console.log(err)
-  }
-})
+});
 
 client.login(process.env.TOKEN);
