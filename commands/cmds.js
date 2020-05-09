@@ -4,6 +4,10 @@ const { cmdsEmbed } = require("../utils/messageEmbeds");
 const accessCheck = require("../permissions");
 
 client.on("message", async (message) => {
+  if (message === "!cmds") {
+    console.log("the !cmds command was called");
+  }
+
   try {
     if (!message.content.startsWith(prefix) || message.author.bot) return;
     let adminCheck = accessCheck(message);
