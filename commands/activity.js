@@ -18,6 +18,8 @@ client.on("message", async (message) => {
     let toUpperCaseType;
     if (activityType) {
       toUpperCaseType = activityType.toUpperCase();
+    } else {
+      console.log("ActivityType was not present most likely for activity.js");
     }
 
     if (command === "activity") {
@@ -44,8 +46,6 @@ client.on("message", async (message) => {
       }
     }
   } catch (err) {
-    console.log(
-      "If catch is present for activity.js, that means activityType is undefined."
-    );
+    console.log(err);
   }
 });
