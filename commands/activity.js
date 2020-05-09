@@ -24,6 +24,13 @@ client.on("message", async (message) => {
           );
         }
 
+        // Check for undefined
+        if (toUpperCaseType === typeof undefined) {
+          console.log(
+            "Nothing has been typed in, which causes the undefined error for activity.js"
+          );
+        }
+
         // If they are, then set the bots activity
         client.user
           .setActivity(`${activityName}`, { type: `${toUpperCaseType}` })
