@@ -14,7 +14,11 @@ client.on("message", async (message) => {
     let activityName = args[0];
     // second argument
     let activityType = args[1];
-    let toUpperCaseType = activityType.toUpperCase();
+
+    let toUpperCaseType;
+    if (activityType) {
+      toUpperCaseType = activityType.toUpperCase();
+    }
 
     if (command === "activity") {
       if (adminCheck) {
