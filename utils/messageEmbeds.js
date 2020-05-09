@@ -30,8 +30,8 @@ const banEmbed = (description, setColor, user, reason, days) => {
 // message embed for rick command
 const cmdsEmbed = () => {
   return new Discord.MessageEmbed()
-    .setTitle("Rick Commands")
-    .setDescription("The following commands are available with the Rick bot.")
+    .setTitle("Bot Commands")
+    .setDescription("The assistant has the following commands.")
     .setColor("#87E5FF")
     .addFields([
       {
