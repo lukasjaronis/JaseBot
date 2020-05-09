@@ -10,19 +10,20 @@ client.on("message", async (message) => {
     const args = message.content.slice(prefix.length).split(/ "|" | “|” /g);
     const command = args.shift().toLowerCase();
     let adminCheck = accessCheck(message);
-    // first argument
-    let activityName = args[0];
-    // second argument
-    let activityType = args[1];
-
-    let toUpperCaseType;
-    if (activityType) {
-      toUpperCaseType = activityType.toUpperCase();
-    } else {
-      console.log("ActivityType was not present most likely for activity.js");
-    }
 
     if (command === "activity") {
+      // first argument
+      let activityName = args[0];
+      // second argument
+      let activityType = args[1];
+
+      let toUpperCaseType;
+      if (activityType) {
+        toUpperCaseType = activityType.toUpperCase();
+      } else {
+        console.log("ActivityType was not present most likely for activity.js");
+      }
+
       if (adminCheck) {
         client.user
           .setActivity(`${activityName}`, { type: `${toUpperCaseType}` })
