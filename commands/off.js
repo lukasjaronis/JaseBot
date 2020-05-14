@@ -20,7 +20,7 @@ client.on("message", async (message) => {
     if (command === "off") {
       if (adminCheck) {
         client.user
-          .setActivity(`Admiring Space`, { type: "WATCHING" })
+          .setActivity(`Spaceship adventures`, { type: "PLAYING" })
           .then((presence) =>
             console.log(`Activity set to ${presence.activities[0].name}`)
           )
