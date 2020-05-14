@@ -1,6 +1,6 @@
 const client = require("../index");
 const { prefix } = require("../config.json");
-const accessCheck = require('../permissions');
+const accessCheck = require("../permissions");
 
 client.on("message", async (message) => {
   try {
@@ -9,10 +9,12 @@ client.on("message", async (message) => {
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
 
-    let adminCheck = accessCheck(message)
+    let adminCheck = accessCheck(message);
 
     // Finding the channel
-    let findChannel = client.channels.cache.find((ch) => ch.name === "stream-info");
+    let findChannel = client.channels.cache.find(
+      (ch) => ch.name === "stream-info"
+    );
     let streamInfo = findChannel.id;
 
     if (command === "live") {
@@ -28,7 +30,9 @@ client.on("message", async (message) => {
           .catch(console.error);
         client.channels.cache
           .get(`${streamInfo}`)
-          .send("@everyone Jason is live! https://www.twitch.tv/tastejase");
+          .send(
+            "@Regular @Subscribers Jason is live! https://www.twitch.tv/tastejase"
+          );
 
         // Getting user ID
         getUserID = message.member.user.id;
@@ -43,7 +47,12 @@ client.on("message", async (message) => {
           .fetch({ limit: 5 })
           .then((msg) => {
             return msg;
-          }).catch(error => console.log(error => console.log(`live cmd, fetchMSG error`, error)));
+          })
+          .catch((error) =>
+            console.log((error) =>
+              console.log(`live cmd, fetchMSG error`, error)
+            )
+          );
 
         // Mapping it out, slicing it up, and shifting it out of the array
         fetchMsgMap = fetchMsg.map((item) => {
@@ -60,22 +69,25 @@ client.on("message", async (message) => {
         message.delete({ timeout: 800 });
 
         // Get info of stream-info and handle message deletions
-        let getStreamInfo = client.channels.cache.get('700889883056799854')
-        await getStreamInfo.messages.fetch({ limit: 30 }).then(collected => {
-          collected.forEach(msg => {
-            if (msg.content.startsWith('Jason')) {
-              msg.delete()
-            }
+        let getStreamInfo = client.channels.cache.get("700889883056799854");
+        await getStreamInfo.messages
+          .fetch({ limit: 30 })
+          .then((collected) => {
+            collected.forEach((msg) => {
+              if (msg.content.startsWith("Jason")) {
+                msg.delete();
+              }
+            });
           })
-        }).catch(error => console.log(`live cmd, getStreamInfo fetch error:`, error))
-
+          .catch((error) =>
+            console.log(`live cmd, getStreamInfo fetch error:`, error)
+          );
       } else {
         message.author.send("Sorry, you don't have permissions for that!");
-        message.delete()
+        message.delete();
       }
     }
-  }
-  catch (err) {
-    console.log(err)
+  } catch (err) {
+    console.log(err);
   }
 });
