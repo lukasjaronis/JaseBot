@@ -31,7 +31,7 @@ client.on("message", async (message) => {
         client.channels.cache
           .get(`${streamInfo}`)
           .send(
-            "@everyone <@&700888461380550656> <@&703360592928309279> Jason is live! https://www.twitch.tv/tastejase"
+            "@everyone <@&718891169802748014> <@&703360592928309279> Jason is live! https://www.twitch.tv/tastejase 🚀🚀🚀"
           );
 
         // Getting user ID
