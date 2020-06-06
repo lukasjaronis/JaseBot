@@ -29,15 +29,4 @@ client.once("ready", () => {
     );
 });
 
-client.on("guildMemberAdd", async (guildMember) => {
-  try {
-    let regularRole = await guildMember.guild.roles
-      .fetch("700888461380550656")
-      .catch((error) => console.log(`guildMemberAdd error: ${error}`));
-    guildMember.roles.add(regularRole.id, "New Member");
-  } catch (err) {
-    console.log(err);
-  }
-});
-
 client.login(process.env.TOKEN);
