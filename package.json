@@ -24,6 +24,8 @@
     "fs": "0.0.1-security",
     "ms": "^2.1.2",
     "qs": "^6.9.4",
-    "twitch-js": "^2.0.0-beta.33"
+    "twitch": "^4.0.10",
+    "twitch-js": "^2.0.0-beta.33",
+    "twitch-webhooks": "^4.0.10"
   }
 }

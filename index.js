@@ -1,5 +1,7 @@
+const TwitchClient = require('twitch').default
+const WebHookListener = require('twitch-webhooks').default
+
 const fs = require('fs')
-const axios = require('axios')
 const Discord = require('discord.js')
 const { config } = require('dotenv')
 const client = new Discord.Client()
@@ -10,54 +12,46 @@ config({
   path: __dirname + '/.env',
 })
 
-async function getAccessToken() {
-  try {
-    const url = 'https://id.twitch.tv/oauth2/token'
+async function streamSubscribe() {
+  // testing
+  const userId = '238273761'
 
-    const requestData = {
-      client_id: process.env.TWITCH_CLIENT_ID,
-      client_secret: process.env.TWITCH_CLIENT_SECRET,
-      grant_type: 'client_credentials',
-    }
+  // const userId = 61050409
+  const clientId = process.env.TWITCH_CLIENT_ID
+  const clientSecret = process.env.TWITCH_CLIENT_SECRET
+  const twitchClient = TwitchClient.withClientCredentials(
+    clientId,
+    clientSecret
+  )
 
-    const options = {
-      method: 'post',
-      headers: {
-        'content-type': 'application/json',
-      },
-      data: requestData,
-      url,
-    }
+  const listener = await WebHookListener.create(twitchClient, {
+    hostName: '7b1819fd546a.ngrok.io',
+    port: 8090,
+    reverseProxy: { port: 443, ssl: true },
+  })
+  listener.listen()
 
-    const { data } = await axios(options)
-    const { access_token } = data
-
-    if (access_token) {
-      console.log(access_token, 'acc')
-      const url = 'https://api.twitch.tv/helix/users?login=tastejase'
-
-      const options = {
-        method: 'get',
-        headers: {
-          'content-type': 'application/json',
-          'Client-Id': process.env.TWITCH_CLIENT_ID,
-          Authorization: `Bearer ${access_token}`,
-        },
-        url,
-      }
-
-      const { data } = await axios(options)
-      const { type } = data
-
-      if (type) {
-        console.log('jason is live')
+  let prevStream = null
+  const subscription = await listener.subscribeToStreamChanges(
+    userId,
+    async (stream) => {
+      if (stream) {
+        console.log(stream, 'stream')
+        if (!prevStream) {
+          console.log(
+            `${stream.userDisplayName} just went live with title: ${stream.title}`
+          )
+        }
       } else {
-        console.log('jason is not live')
+        // no stream, no display name
+        const user = await twitchClient.helix.users.getUserById(userId)
+        console.log(user, 'user')
+        console.log(`${user.displayName} just went offline`)
       }
+      prevStream = stream
     }
-  } catch (error) {
-    console.log(error)
-  }
+  )
+  return subscription
 }
 
 // turns commands folder into the command collection
@@ -80,6 +74,6 @@ client.once('ready', () => {
     )
 })
 
-getAccessToken()
+streamSubscribe()
 
 client.login(process.env.TOKEN)
