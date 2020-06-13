@@ -18,9 +18,12 @@
   },
   "homepage": "https://github.com/lukasjaronis/JaseBot#readme",
   "dependencies": {
+    "axios": "^0.19.2",
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
     "fs": "0.0.1-security",
-    "ms": "^2.1.2"
+    "ms": "^2.1.2",
+    "qs": "^6.9.4",
+    "twitch-js": "^2.0.0-beta.33"
   }
 }
