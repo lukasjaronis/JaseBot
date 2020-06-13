@@ -14,8 +14,9 @@ async function streamCheck() {
   )
 
   const listener = await WebHookListener.create(twitchClient, {
-    hostName: 'captainjason-discord-bot.herokuapp.com',
-    port: process.env.PORT || 80,
+    hostName: '64.227.3.188',
+    port: 8080,
+    reverseProxy: { ssl: true, port: 443 },
   })
   listener.listen()
 
