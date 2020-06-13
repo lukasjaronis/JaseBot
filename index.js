@@ -1,7 +1,6 @@
 const fs = require('fs')
 const Discord = require('discord.js')
 const { config } = require('dotenv')
-const { streamCheck } = require('./streamCheck')
 const client = new Discord.Client()
 module.exports = client
 
@@ -29,7 +28,5 @@ client.once('ready', () => {
       console.log(`Activity set to ${presence.activities[0].name}`)
     )
 })
-
-streamCheck()
 
 client.login(process.env.TOKEN)
