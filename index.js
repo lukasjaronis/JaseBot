@@ -25,9 +25,7 @@ async function streamSubscribe() {
   )
 
   const listener = await WebHookListener.create(twitchClient, {
-    hostName: '7b1819fd546a.ngrok.io',
-    port: 8090,
-    reverseProxy: { port: 443, ssl: true },
+    port: process.env.PORT || 80,
   })
   listener.listen()
 
