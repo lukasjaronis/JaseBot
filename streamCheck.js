@@ -15,8 +15,7 @@ async function streamCheck() {
 
   const listener = await WebHookListener.create(twitchClient, {
     hostName: '64.227.3.188',
-    port: 8080,
-    reverseProxy: { ssl: true, port: 443 },
+    port: 8090,
   })
   listener.listen()
 
