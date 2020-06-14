@@ -89,8 +89,8 @@ client.on('message', async (message) => {
                   url,
                 }
 
-                const { data } = await axios(options)
-                const result = Promise.all(data)
+                const response = await axios(options)
+                const result = Promise.all(response)
 
                 console.log(result.data, 'response')
               } catch (error) {
