@@ -77,6 +77,7 @@ client.on('message', async (message) => {
               if (item.game_id) {
                 const getGame = async () => {
                   try {
+                    console.log('am i in here?')
                     const url = `https://api.twitch.tv/helix/games?id=${item.game_id}`
 
                     const options = {
@@ -100,10 +101,10 @@ client.on('message', async (message) => {
                   } catch (error) {
                     console.log(error)
                   }
-                  gameName = getGame()
-                  console.log(gameName, 'inside if')
-                  return gameName
                 }
+                gameName = getGame()
+                console.log(gameName, 'inside if')
+                return gameName
               }
             })
 
