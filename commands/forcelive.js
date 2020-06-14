@@ -62,6 +62,8 @@ client.on('message', async (message) => {
           if (data.data.length != 0) {
             // Setting the discord bot activity
 
+            console.log(data.data, 'data')
+
             const { title } = data.data
             console.log(title, 'title')
 
