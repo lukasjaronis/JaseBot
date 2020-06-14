@@ -93,11 +93,11 @@ client.on('message', async (message) => {
                 return getGame()
               }
 
-              return { item, getGame() }
+              return { item }
             })
 
             console.log(dataMap, 'datamap')
-           
+
             // // Setting the embed
             // let msg = liveEmbed(item, gameName)
             // // Sending message out to the stream info channel
