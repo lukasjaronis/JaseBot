@@ -72,10 +72,10 @@ client.on('message', async (message) => {
               .catch(console.error)
 
             let gameName
-            dataMap = data.data.map((item) => {
+            data.data.map((item) => {
               // checking if game.id exists
               if (item.game_id) {
-                async function getGame() {
+                const getGame = async () => {
                   const url = `https://api.twitch.tv/helix/games?id=${item.game_id}`
 
                   const options = {
@@ -90,18 +90,16 @@ client.on('message', async (message) => {
 
                   const { data } = await axios(options)
 
+                  const resolvedData = await data
+
                   let gameName
-                  data.data.map((item) => {
+                  resolvedData.data.map((item) => {
                     gameName = item.name
                     return gameName
                   })
                   return gameName
                 }
                 gameName = getGame()
-                  .then((response) => {
-                    return response
-                  })
-                  .catch((e) => console.log(e))
                 return gameName
               }
             })
@@ -113,8 +111,6 @@ client.on('message', async (message) => {
             })
 
             if (items && gameName) {
-              console.log(items, 'ITEMS')
-              console.log(gameName, 'game name')
               // Setting the embed
               let msg = liveEmbed(items, gameName)
               // Sending message out to the stream info channel
