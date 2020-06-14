@@ -92,14 +92,14 @@ client.on('message', async (message) => {
             // const [game] = await getGame(gameId).catch(console.error)
             console.log(await getGame(theGameId), '??')
 
-            const items = data.data[0]
-            console.log(items, 'items')
+            // const items = data.data[0]
+            // console.log(items, 'items')
 
-            if (items && game.name) {
-              // Setting the embed
-              let msg = liveEmbed(items, game.name)
-              // Sending message out to the stream info channel
-              return client.channels.cache.get(`${streamInfo}`).send(msg)
+            // if (items && game.name) {
+            //   // Setting the embed
+            //   let msg = liveEmbed(items, game.name)
+            //   // Sending message out to the stream info channel
+            //   return client.channels.cache.get(`${streamInfo}`).send(msg)
             }
           } else {
             message.channel.send('Jason is currently not live.')
