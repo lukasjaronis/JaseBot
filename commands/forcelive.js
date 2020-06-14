@@ -69,7 +69,7 @@ client.on('message', async (message) => {
               .then((presence) =>
                 console.log(`Activity set to ${presence.activities[0].name}`)
               )
-              .catch(console.error)
+              .catch(console.error)   
 
             let gameName
             data.data.map((item) => {
@@ -103,7 +103,7 @@ client.on('message', async (message) => {
                     console.log(error)
                   }
                 }
-                gameName = getGame()
+                gameName = await getGame()
                 if (gameName) return gameName
               }
             })
