@@ -93,7 +93,7 @@ client.on('message', async (message) => {
               return gameName
             }
             // Setting the embed
-            let msg = liveEmbed(data, gameName)
+            let msg = liveEmbed(data.data, gameName)
             // Sending message out to the stream info channel
             return client.channels.cache.get(`${streamInfo}`).send(msg)
           } else {
