@@ -61,7 +61,6 @@ client.on('message', async (message) => {
 
           if (data.data.length != 0) {
             // Setting the discord bot activity
-
             client.user
               .setActivity('twitch ❤️', {
                 type: 'STREAMING',
@@ -72,8 +71,9 @@ client.on('message', async (message) => {
               )
               .catch(console.error)
 
-            let gameName
-            data.data.map((item) => {
+            const dataMap = data.data.map((item) => {
+              // checking if game.id exists
+
               if (item.game_id) {
                 async function getGame(item) {
                   console.log(item.game_id)
@@ -90,17 +90,19 @@ client.on('message', async (message) => {
                     url,
                   }
                   const { data } = await axios(options)
-                  return console.log(data)
+                  return data
                 }
-                gameName = getGame()
-                return gameName
+                return getGame()
               }
-            })
 
-            // Setting the embed
-            let msg = liveEmbed(data.data, gameName)
-            // Sending message out to the stream info channel
-            return client.channels.cache.get(`${streamInfo}`).send(msg)
+              const gameName = getGame()
+
+              // Setting the embed
+              let msg = liveEmbed(item, gameName)
+              // Sending message out to the stream info channel
+              return client.channels.cache.get(`${streamInfo}`).send(msg)
+            })
+            return dataMap
           } else {
             message.channel.send('Jason is currently not live.')
           }
