@@ -90,7 +90,8 @@ client.on('message', async (message) => {
             }
 
             // const [game] = await getGame(gameId).catch(console.error)
-            console.log(await getGame(gameId), '??')
+            const whatIsIt = await getGame(gameId).catch(console.error)
+            console.log(whatIsIt)
 
             const items = data.data[0]
             console.log(items, 'items')
