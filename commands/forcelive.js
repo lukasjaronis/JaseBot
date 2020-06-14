@@ -62,6 +62,9 @@ client.on('message', async (message) => {
           if (data.data.length != 0) {
             // Setting the discord bot activity
 
+            const { title } = data
+            console.log(title, 'title')
+
             client.user
               .setActivity('twitch ❤️', {
                 type: 'STREAMING',
