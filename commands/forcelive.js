@@ -14,9 +14,9 @@ client.on('message', async (message) => {
     let adminCheck = accessCheck(message)
 
     // Finding the channel
-    let findChannel = client.channels.cache.find((ch) => ch.name === 'testing')
-
-    // stream-info
+    let findChannel = client.channels.cache.find(
+      (ch) => ch.name === 'stream-info'
+    )
 
     let streamInfo = findChannel.id
 

@@ -91,7 +91,7 @@ async function checkStream() {
   return subscription
 }
 
-checkStream()
+// checkStream()
 
 // turns commands folder into the command collection
 client.commands = new Discord.Collection()
