@@ -91,13 +91,14 @@ client.on('message', async (message) => {
                   return response.data
                 })
 
-                console.log(data, 'data')
-
                 let gameName
-                data.data.map((item) => {
-                  gameName = item.name
-                  return gameName
-                })
+                if (data) {
+                  data.data.map((item) => {
+                    gameName = item.name
+                    return gameName
+                  })
+                }
+
                 return gameName
               }
             })
