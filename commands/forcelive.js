@@ -88,7 +88,7 @@ client.on('message', async (message) => {
                   },
                   url,
                 }
-                const { data } = await axios(options)
+                const { data } = axios(options).then(r => {return r})
                 return console.log(data)
               }
             })
