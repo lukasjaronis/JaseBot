@@ -84,6 +84,7 @@ for (const file of commandFiles) {
 
 client.once('ready', () => {
   console.log('Bot online')
+  streamCheck()
   client.user
     .setActivity('Morty', { type: 'WATCHING' })
     .then((presence) =>
@@ -92,5 +93,3 @@ client.once('ready', () => {
 })
 
 client.login(process.env.TOKEN)
-
-module.exports = streamCheck
