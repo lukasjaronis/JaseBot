@@ -11,7 +11,7 @@ config({
   path: __dirname + '/.env',
 })
 
-export async function streamCheck() {
+async function streamCheck() {
   const userId = '61050409'
   const clientId = process.env.TWITCH_CLIENT_ID
   const clientSecret = process.env.TWITCH_CLIENT_SECRET
