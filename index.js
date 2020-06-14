@@ -12,6 +12,13 @@ config({
 })
 
 async function startListener() {
+  const clientId = process.env.TWITCH_CLIENT_ID
+  const clientSecret = process.env.TWITCH_CLIENT_SECRET
+  const twitchClient = TwitchClient.withClientCredentials(
+    clientId,
+    clientSecret
+  )
+
   const listener = await WebHookListener.create(twitchClient, {
     hostName: '64.227.3.188',
     port: 8098,
@@ -24,12 +31,12 @@ startListener()
 
 // async function checkStream() {
 //   const userId = '61050409'
-//   const clientId = process.env.TWITCH_CLIENT_ID
-//   const clientSecret = process.env.TWITCH_CLIENT_SECRET
-//   const twitchClient = TwitchClient.withClientCredentials(
-//     clientId,
-//     clientSecret
-//   )
+// const clientId = process.env.TWITCH_CLIENT_ID
+// const clientSecret = process.env.TWITCH_CLIENT_SECRET
+// const twitchClient = TwitchClient.withClientCredentials(
+//   clientId,
+//   clientSecret
+// )
 
 //   const listener = await WebHookListener.create(twitchClient, {
 //     hostName: '64.227.3.188',
