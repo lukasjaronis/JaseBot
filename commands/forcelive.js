@@ -71,38 +71,31 @@ client.on('message', async (message) => {
               )
               .catch(console.error)
 
-            await Promise.all(data.data.map(async (item) => {}))
+            const getGame = async () => {
+              const itemWithGameId = data.data.find((i) => i.game_id)
 
-            let gameName
-            data.data.map(async (item) => {
-              // checking if game.id exists
-              if (item.game_id) {
-                const getGame = async () => {
-                  const itemWithGameId = data.data.find((i) => i.game_id)
+              try {
+                const url = `https://api.twitch.tv/helix/games?id=${itemWithGameId.game_id}`
 
-                  try {
-                    const url = `https://api.twitch.tv/helix/games?id=${itemWithGameId.game_id}`
-
-                    const options = {
-                      method: 'get',
-                      headers: {
-                        'content-type': 'application/json',
-                        'Client-Id': process.env.TWITCH_CLIENT_ID,
-                        Authorization: `Bearer ${access_token}`,
-                      },
-                      url,
-                    }
-
-                    const response = await axios(options)
-                    console.log(response.data.name)
-                  } catch (error) {
-                    console.log(error)
-                  }
+                const options = {
+                  method: 'get',
+                  headers: {
+                    'content-type': 'application/json',
+                    'Client-Id': process.env.TWITCH_CLIENT_ID,
+                    Authorization: `Bearer ${access_token}`,
+                  },
+                  url,
                 }
-                gameName = await getGame()
-                if (gameName) return gameName
+
+                const response = await axios(options)
+                console.log(response.data.name)
+              } catch (error) {
+                console.log(error)
               }
-            })
+            }
+
+            gameName = await getGame()
+            if (gameName) return gameName
 
             console.log(gameName, 'game name')
 
