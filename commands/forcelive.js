@@ -87,8 +87,8 @@ client.on('message', async (message) => {
                     url,
                   }
                   const { data } = await axios(options)
-                  console.log(data, 'DATTTAAA')
-                  return data
+                  console.log(data.data.name, 'name')
+                  return data.data
                 }
                 return getGame()
               }
