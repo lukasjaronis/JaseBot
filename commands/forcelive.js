@@ -73,7 +73,10 @@ client.on('message', async (message) => {
 
             const dataMap = data.data.map((item) => {
               // checking if game.id exists
+              console.log(item, 'ITEM')
+              console.log(item.game_id, 'FAWEFAWFEA')
               if (item.game_id) {
+                console.log(item.game_id, 'game id')
                 async function getGame(item) {
                   const gameId = `${item.game_id}`
                   const url = `https://api.twitch.tv/helix/games?id=${gameId}`
@@ -92,8 +95,6 @@ client.on('message', async (message) => {
                 }
                 return getGame()
               }
-
-              return { item }
             })
 
             console.log(dataMap, 'datamap')
