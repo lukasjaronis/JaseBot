@@ -71,7 +71,8 @@ client.on('message', async (message) => {
               )
               .catch(console.error)
 
-            const getGame = (dataMap = data.data.map((item) => {
+            let gameName
+            dataMap = data.data.map((item) => {
               // checking if game.id exists
               if (item.game_id) {
                 async function getGame() {
@@ -96,17 +97,16 @@ client.on('message', async (message) => {
                   console.log(gameName, 'gameName')
                   return gameName
                 }
-                return getGame()
+                gameName = await getGame()
+                return gameName
               }
-            }))
+            })
 
             let items
             data.data.map((item) => {
               items = item
               return items
             })
-
-            const gameName = await getGame
 
             // Setting the embed
             let msg = liveEmbed(items, gameName)
