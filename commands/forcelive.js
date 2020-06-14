@@ -71,46 +71,31 @@ client.on('message', async (message) => {
               )
               .catch(console.error)
 
-            const getGame = async () => {
-              const itemWithGameId = data.data.find((i) => i)
+            const stream = data.data[0]
+            const gameId = stream.game_id
 
-              const { game_id } = itemWithGameId
-
-              try {
-                const url = `https://api.twitch.tv/helix/games?id=${game_id}`
-
-                const options = {
-                  method: 'get',
+            const getGame = async (id) => {
+              const { data } = await axios.get(
+                `https://api.twitch.tv/helix/games?id=${id}`,
+                {
                   headers: {
                     'content-type': 'application/json',
                     'Client-Id': process.env.TWITCH_CLIENT_ID,
                     Authorization: `Bearer ${access_token}`,
                   },
-                  url,
                 }
+              )
 
-                const { data } = await axios(options)
-                const response = await Promise.all(data.data)
-                return response
-              } catch (error) {
-                console.log(error)
-              }
+              return data
             }
 
-            gameName = await getGame().then((response) => {
-              return response
-            })
-            if (gameName) return gameName
+            const gameName = await getGame(gameId)
 
             console.log(gameName, 'game name')
 
-            let items
-            data.data.map((item) => {
-              items = item
-              return items
-            })
+            const lastItem = data.data[data.data.length - 1]
 
-            if (items && gameName) {
+            if (lastItem && gameName) {
               // Setting the embed
               let msg = liveEmbed(items, gameName)
               // Sending message out to the stream info channel
