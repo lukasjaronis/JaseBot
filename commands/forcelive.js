@@ -75,6 +75,7 @@ client.on('message', async (message) => {
             dataMap = data.data.map((item) => {
               // checking if game.id exists
               if (item.game_id) {
+                console.log(item.game_id, 'game id')
                 const getGame = async (item) => {
                   console.log(item)
                 }
