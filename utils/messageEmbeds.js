@@ -77,7 +77,9 @@ const liveEmbed = (data, game) => {
     .setTitle('Jason is live! 🚀🚀🚀')
     .setDescription(data.title)
     .addField('Playing ', game)
-    .setThumbnail('https://media.giphy.com/media/xULW8LE3usQAw9kSGc/giphy.gif')
+    .setThumbnail(
+      `https://static-cdn.jtvnw.net/previews-ttv/live_user_tastejase-600x400.jpg`
+    )
     .setTimestamp()
 }
 
