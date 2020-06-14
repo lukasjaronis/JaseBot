@@ -76,33 +76,37 @@ client.on('message', async (message) => {
               // checking if game.id exists
               if (item.game_id) {
                 const getGame = async () => {
-                  const url = `https://api.twitch.tv/helix/games?id=${item.game_id}`
+                  try {
+                    const url = `https://api.twitch.tv/helix/games?id=${item.game_id}`
 
-                  const options = {
-                    method: 'get',
-                    headers: {
-                      'content-type': 'application/json',
-                      'Client-Id': process.env.TWITCH_CLIENT_ID,
-                      Authorization: `Bearer ${access_token}`,
-                    },
-                    url,
-                  }
+                    const options = {
+                      method: 'get',
+                      headers: {
+                        'content-type': 'application/json',
+                        'Client-Id': process.env.TWITCH_CLIENT_ID,
+                        Authorization: `Bearer ${access_token}`,
+                      },
+                      url,
+                    }
 
-                  const { data } = await axios(options)
+                    const { data } = await axios(options)
 
-                  const resolvedData = await data
-
-                  let gameName
-                  resolvedData.data.map((item) => {
-                    gameName = item.name
+                    let gameName
+                    data.data.map((item) => {
+                      gameName = item.name
+                      return gameName
+                    })
                     return gameName
-                  })
+                  } catch (error) {
+                    console.log(error)
+                  }
+                  gameName = getGame()
                   return gameName
                 }
-                gameName = getGame()
-                return gameName
               }
             })
+
+            console.log(gameName, 'game name')
 
             let items
             data.data.map((item) => {
