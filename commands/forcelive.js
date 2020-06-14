@@ -60,7 +60,10 @@ client.on('message', async (message) => {
 
           const { data } = await axios(options)
 
-          if (data.data !== undefined || data.data.length !== 0) {
+          console.log(data.length, 'data length')
+          console.log(data.data.length, 'data data length')
+
+          if (data.data != undefined || data.data.length != 0) {
             console.log(data.data, 'data in forcelive')
             // Setting the discord bot activity
             client.user
