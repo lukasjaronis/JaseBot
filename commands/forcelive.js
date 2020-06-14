@@ -84,7 +84,7 @@ client.on('message', async (message) => {
                     Authorization: `Bearer ${access_token}`,
                   },
                 }
-              )
+              ).catch(e => console.log(e))
               return data
             }
 
