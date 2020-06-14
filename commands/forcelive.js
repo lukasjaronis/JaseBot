@@ -85,8 +85,7 @@ client.on('message', async (message) => {
                   },
                 }
               )
-
-              return data
+              return data.data
             }
 
             // const [game] = await getGame(gameId).catch(console.error)
