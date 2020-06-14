@@ -75,10 +75,10 @@ const liveEmbed = (data, game) => {
   return new Discord.MessageEmbed()
     .setTitle('Jason is live! 🚀🚀🚀')
     .setDescription(data.title)
-    .setColor('#87E5FF')
     .addField('https://www.twitch.tv/tastejase')
-    .addField('Playing ', game ? game : 'something... 👀')
+    .addField('Playing ', game)
     .setTimestamp()
+    .setColor('#87E5FF')
 }
 
 module.exports = { kickEmbed, banEmbed, cmdsEmbed, liveEmbed }
