@@ -73,10 +73,8 @@ client.on('message', async (message) => {
 
             const dataMap = data.data.map((item) => {
               // checking if game.id exists
-
               if (item.game_id) {
                 async function getGame(item) {
-                  console.log(item.game_id)
                   const gameId = `${item.game_id}`
                   const url = `https://api.twitch.tv/helix/games?id=${gameId}`
 
@@ -95,14 +93,15 @@ client.on('message', async (message) => {
                 return getGame()
               }
 
-              const gameName = getGame()
-
-              // Setting the embed
-              let msg = liveEmbed(item, gameName)
-              // Sending message out to the stream info channel
-              return client.channels.cache.get(`${streamInfo}`).send(msg)
+              return { item, getGame() }
             })
-            return dataMap
+
+            console.log(dataMap, 'datamap')
+           
+            // // Setting the embed
+            // let msg = liveEmbed(item, gameName)
+            // // Sending message out to the stream info channel
+            // return client.channels.cache.get(`${streamInfo}`).send(msg)
           } else {
             message.channel.send('Jason is currently not live.')
           }
