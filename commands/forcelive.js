@@ -89,9 +89,8 @@ client.on('message', async (message) => {
               return data
             }
 
-            const gameName = await getGame(gameId)
-
-            console.log(gameName, 'game name')
+            const [game] = await getGame(gameId).catch(console.error)
+            console.log(game.name, 'game.name')
 
             const lastItem = data.data[data.data.length - 1]
 
