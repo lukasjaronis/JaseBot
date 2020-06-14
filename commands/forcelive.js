@@ -106,7 +106,7 @@ client.on('message', async (message) => {
               return items
             })
 
-            const gameName = getGame
+            const gameName = await getGame
 
             // Setting the embed
             let msg = liveEmbed(items, gameName)

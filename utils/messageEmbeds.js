@@ -78,7 +78,6 @@ const liveEmbed = (data, game) => {
     .setColor('#87E5FF')
     .addField('https://www.twitch.tv/tastejase')
     .addField('Playing ', game ? game : 'something... 👀')
-    .setThumbnail(data.thumbnail_url || data.thumbnailUrl)
     .setTimestamp()
 }
 
