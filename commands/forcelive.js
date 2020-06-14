@@ -87,15 +87,15 @@ client.on('message', async (message) => {
                     },
                     url,
                   }
-                  const { data } = await axios(options)
 
                   let gameName
-                  if (data) {
+                  axios(options).then((r) => {
+                    const { data } = r
                     data.data.map((item) => {
                       gameName = item.name
                       return gameName
                     })
-                  }
+                  })
                   return gameName
                 }
                 gameName = getGame()
