@@ -11,7 +11,7 @@ config({
   path: __dirname + '/.env',
 })
 
-async function streamCheck() {
+export async function streamCheck() {
   const userId = '61050409'
   const clientId = process.env.TWITCH_CLIENT_ID
   const clientSecret = process.env.TWITCH_CLIENT_SECRET
@@ -92,3 +92,5 @@ client.once('ready', () => {
 })
 
 client.login(process.env.TOKEN)
+
+module.exports = streamCheck
