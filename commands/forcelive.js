@@ -72,29 +72,27 @@ client.on('message', async (message) => {
               )
               .catch(console.error)
 
+              
+         
             data.data.map((item) => {
-              console.log(item, 'item')
-            })
+              if (item.game_id) {
+                const gameId = `${item.game_id}`
+                const url = `https://api.twitch.tv/helix/games?id=${gameId}`
 
-            // Checking if data.game_id exists, meaning if game is set
-            let gameName
-            if (data.data.game_id) {
-              const gameId = `${data.data.game_id}`
-              const url = `https://api.twitch.tv/helix/games?id=${gameId}`
-
-              const options = {
-                method: 'get',
-                headers: {
-                  'content-type': 'application/json',
-                  'Client-Id': process.env.TWITCH_CLIENT_ID,
-                  Authorization: `Bearer ${access_token}`,
-                },
-                url,
+                const options = {
+                  method: 'get',
+                  headers: {
+                    'content-type': 'application/json',
+                    'Client-Id': process.env.TWITCH_CLIENT_ID,
+                    Authorization: `Bearer ${access_token}`,
+                  },
+                  url,
+                }
+                const { data } = await axios(options)
+                return console.log(data)
               }
-
-              const { data } = await axios(options)
-              gameName = data.data.name
-              return gameName
+            })
+       
             }
 
             // Setting the embed
