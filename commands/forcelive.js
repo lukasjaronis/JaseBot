@@ -57,7 +57,9 @@ client.on('message', async (message) => {
             url,
           }
 
-          const { data } = await axios(options)
+          const data = await axios(options)
+
+          console.log(data, 'data')
 
           if (data.data.length != 0) {
             // Setting the discord bot activity
