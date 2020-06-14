@@ -90,6 +90,7 @@ client.on('message', async (message) => {
 
                   let gameName
                   axios(options).then((r) => {
+                    console.log(r, 'rrrr')
                     const { data } = r
                     data.data.map((item) => {
                       gameName = item.name
