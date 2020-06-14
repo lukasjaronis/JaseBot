@@ -96,9 +96,6 @@ client.on('message', async (message) => {
               return gameName
             }
 
-            console.log(gameName)
-            console.log(data.data.data.game_id, 'data??')
-
             // Setting the embed
             let msg = liveEmbed(data.data, gameName)
             // Sending message out to the stream info channel
