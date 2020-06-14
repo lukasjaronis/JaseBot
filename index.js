@@ -12,7 +12,8 @@ config({
 })
 
 async function streamCheck() {
-  const userId = '61050409'
+  // const userId = '61050409'
+  const userId = '238273761'
   const clientId = process.env.TWITCH_CLIENT_ID
   const clientSecret = process.env.TWITCH_CLIENT_SECRET
   const twitchClient = TwitchClient.withClientCredentials(
