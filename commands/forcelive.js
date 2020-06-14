@@ -108,10 +108,12 @@ client.on('message', async (message) => {
               return items
             })
 
-            // Setting the embed
-            let msg = liveEmbed(items, gameName)
-            // Sending message out to the stream info channel
-            return client.channels.cache.get(`${streamInfo}`).send(msg)
+            if (items && gameName) {
+              // Setting the embed
+              let msg = liveEmbed(items, gameName)
+              // Sending message out to the stream info channel
+              return client.channels.cache.get(`${streamInfo}`).send(msg)
+            }
           } else {
             message.channel.send('Jason is currently not live.')
           }
