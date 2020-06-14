@@ -4,6 +4,9 @@ const fs = require('fs')
 const Discord = require('discord.js')
 const { config } = require('dotenv')
 const client = new Discord.Client()
+
+const { liveEmbed } = require('./utils/messageEmbeds')
+
 module.exports = client
 
 // ENV
@@ -11,6 +14,7 @@ config({
   path: __dirname + '/.env',
 })
 
+// The webhook listener needs an initial state, so it has to detect that the streamer is live first.
 async function checkStream() {
   const userId = '61050409'
   const clientId = process.env.TWITCH_CLIENT_ID
@@ -41,7 +45,7 @@ async function checkStream() {
           let streamInfo = findChannel.id
 
           client.user
-            .setActivity('twitch', {
+            .setActivity('twitch ❤️', {
               type: 'STREAMING',
               url: 'https://www.twitch.tv/tastejase',
             })
@@ -50,11 +54,28 @@ async function checkStream() {
             )
             .catch(console.error)
 
-          client.channels.cache
-            .get(`${streamInfo}`)
-            .send(
-              `@everyone <@&718891169802748014> <@&703360592928309279> \n ${stream.userDisplayName} is live! https://www.twitch.tv/tastejase 🚀🚀🚀 \n ${stream.title}`
-            )
+          let gameName
+          if (stream.gameId) {
+            const gameId = `${data.game_id}`
+            const url = `https://api.twitch.tv/helix/games?id=${gameId}`
+
+            const options = {
+              method: 'get',
+              headers: {
+                'content-type': 'application/json',
+                'Client-Id': process.env.TWITCH_CLIENT_ID,
+                Authorization: `Bearer ${access_token}`,
+              },
+              url,
+            }
+
+            const { data } = await axios(options)
+            gameName = data.name
+            return gameName
+          }
+
+          let msg = liveEmbed(stream, gameName)
+          return client.channels.cache.get(`${streamInfo}`).send(msg)
         }
       } else {
         // no stream, no display name

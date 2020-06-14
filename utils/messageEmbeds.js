@@ -1,4 +1,4 @@
-const Discord = require("discord.js");
+const Discord = require('discord.js')
 
 // message embed for kick command
 const kickEmbed = (description, setColor, user, reason) => {
@@ -8,10 +8,10 @@ const kickEmbed = (description, setColor, user, reason) => {
     .addField(`Kicked User`, user)
     .addField(`Reason`, reason)
     .setThumbnail(
-      "https://media0.giphy.com/media/gjfbSsz2EnNMLpRyqb/giphy.gif?cid=ecf05e47fbef57d1f1ddc3d684080c0391f8dfb3753a2aad&rid=giphy.gif"
+      'https://media0.giphy.com/media/gjfbSsz2EnNMLpRyqb/giphy.gif?cid=ecf05e47fbef57d1f1ddc3d684080c0391f8dfb3753a2aad&rid=giphy.gif'
     )
-    .setTimestamp();
-};
+    .setTimestamp()
+}
 
 // message embed for ban command
 const banEmbed = (description, setColor, user, reason, days) => {
@@ -20,61 +20,70 @@ const banEmbed = (description, setColor, user, reason, days) => {
     .setColor(setColor)
     .addField(`Banned User`, user)
     .addField(`Reason`, reason)
-    .addField("Days", days)
+    .addField('Days', days)
     .setThumbnail(
-      "https://media1.giphy.com/media/BT4ygwV9vgwAU/giphy.gif?cid=ecf05e47ce1f48adda4cff78d01d1438352cf8c709ccadf6&rid=giphy.gif"
+      'https://media1.giphy.com/media/BT4ygwV9vgwAU/giphy.gif?cid=ecf05e47ce1f48adda4cff78d01d1438352cf8c709ccadf6&rid=giphy.gif'
     )
-    .setTimestamp();
-};
+    .setTimestamp()
+}
 
 // message embed for rick command
 const cmdsEmbed = () => {
   return new Discord.MessageEmbed()
-    .setTitle("Bot Commands")
-    .setDescription("The assistant has the following commands.")
-    .setColor("#87E5FF")
+    .setTitle('Bot Commands')
+    .setDescription('The assistant has the following commands.')
+    .setColor('#87E5FF')
     .addFields([
       {
-        name: "**Jase**",
+        name: '**Adminstrator**',
         value:
-          "`!live` - Sends a notifcation to everybody in #stream-info, sets the bots activity to streaming with your twitch linked, and deletes the command shortly after.",
+          '`!forcelive` - Sends a notifcation to everybody in #stream-info, sets the bots activity to streaming with your twitch linked, and deletes the command shortly after.',
         inline: false,
       },
       {
-        name: "**Jase**",
+        name: '**Adminstrator**',
         value:
-          "`!off` - Sends a message in #stream-info, sets the bots activity to 'Watching Admiring Space', and deletes the command message shortly after.",
+          '`!mute @user time` - Mutes user. ~ Time: 1d, 1h, 10s, etc. (https://www.npmjs.com/package/ms)',
         inline: false,
       },
       {
-        name: "**Adminstrator**",
+        name: '**Adminstrator**',
+        value: '`!kick @user reason` - Kicks user.',
+        inline: false,
+      },
+      {
+        name: '**Adminstrator**',
         value:
-          "`!mute @user time` - Mutes user. ~ Time: 1d, 1h, 10s, etc. (https://www.npmjs.com/package/ms)",
+          '`!ban @user days reason` - Ban user. Days must be whole numbers and it goes by days. Example: !ban @lukas 3 abuse (This would be a 3 day ban)',
         inline: false,
       },
       {
-        name: "**Adminstrator**",
-        value: "`!kick @user reason` - Kicks user.",
-        inline: false,
-      },
-      {
-        name: "**Adminstrator**",
-        value:
-          "`!ban @user days reason` - Ban user. Days must be whole numbers and it goes by days. Example: !ban @lukas 3 abuse (This would be a 3 day ban)",
-        inline: false,
-      },
-      {
-        name: "**Adminstrator**",
+        name: '**Adminstrator**',
         value:
           '`!activity activityName activityType` - Sets the bots activity. ActivityName MUST be in quotes. Example: !activity "walking the dog" playing ~ For activity you can only do playing, streaming, listening, or watching for the type.',
         inline: false,
       },
       {
-        name: "**Adminstrator**",
-        value: "`!cmds` - Brings up available commands",
+        name: '**Adminstrator**',
+        value: '`!cmds` - Brings up available commands',
         inline: false,
       },
-    ]);
-};
+    ])
+}
 
-module.exports = { kickEmbed, banEmbed, cmdsEmbed };
+const liveEmbed = (data, game) => {
+  return new Discord.MessageEmbed()
+    .setTitle('Jason is live! 🚀🚀🚀')
+    .setDescription(data.title)
+    .setColor('#87E5FF')
+    .addField('https://www.twitch.tv/tastejase')
+    .addField('Playing ', game ? game : 'something... 👀')
+    .setThumbnail({
+      url: data.thumbnail_url || data.thumbnailUrl,
+      width: 600,
+      height: 400,
+    })
+    .setTimestamp()
+}
+
+module.exports = { kickEmbed, banEmbed, cmdsEmbed, liveEmbed }
