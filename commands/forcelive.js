@@ -93,7 +93,7 @@ client.on('message', async (message) => {
                     gameName = item.name
                     return gameName
                   })
-
+                  console.log(gameName, 'gameName')
                   return gameName
                 }
                 return getGame()
