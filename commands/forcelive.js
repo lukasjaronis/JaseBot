@@ -71,12 +71,10 @@ client.on('message', async (message) => {
               )
               .catch(console.error)
 
-            const dataMap = data.data.map((item) => {
+            let gameName
+            dataMap = data.data.map((item) => {
               // checking if game.id exists
-              console.log(item, 'ITEM')
-              console.log(item.game_id, 'FAWEFAWFEA')
               if (item.game_id) {
-                console.log(item.game_id, 'game id')
                 async function getGame(item) {
                   const gameId = `${item.game_id}`
                   const url = `https://api.twitch.tv/helix/games?id=${gameId}`
@@ -91,9 +89,14 @@ client.on('message', async (message) => {
                     url,
                   }
                   const { data } = await axios(options)
+                  console.log(data, 'DATTTAAA')
                   return data
                 }
-                return getGame()
+                gameName = getGame()
+
+                if (gameName) {
+                  return gameName
+                }
               }
             })
 
