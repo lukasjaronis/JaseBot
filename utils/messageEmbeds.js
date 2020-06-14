@@ -75,9 +75,9 @@ const liveEmbed = (data, game) => {
   return new Discord.MessageEmbed()
     .setColor('#87E5FF')
     .setTitle('Jason is live! 🚀🚀🚀')
-    .setURL('https://www.twitch.tv/tastejase')
     .setDescription(data.title)
     .addField('Playing ', game)
+    .setFooter('Come watch me!', 'https://www.twitch.tv/tastejase')
     .setTimestamp()
 }
 
