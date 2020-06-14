@@ -90,13 +90,16 @@ client.on('message', async (message) => {
                 }
 
                 const { data } = await axios(options)
-                return data.data
+                const response = await Promise.all(data.data)
+                return response
               } catch (error) {
                 console.log(error)
               }
             }
 
-            gameName = await getGame()
+            gameName = await getGame().then((response) => {
+              return console.log(response, 'resonse')
+            })
             if (gameName) return gameName
 
             console.log(gameName, 'game name')
