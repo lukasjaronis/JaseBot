@@ -72,6 +72,7 @@ client.on('message', async (message) => {
               )
               .catch(console.error)
 
+            let gameName
             data.data.map((item) => {
               if (item.game_id) {
                 async function getGame(item) {
@@ -91,7 +92,8 @@ client.on('message', async (message) => {
                   const { data } = await axios(options)
                   return console.log(data)
                 }
-                return getGame()
+                gameName = getGame()
+                return gameName
               }
             })
 
