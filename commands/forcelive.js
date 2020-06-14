@@ -71,7 +71,7 @@ client.on('message', async (message) => {
               )
               .catch(console.error)
 
-            dataMap = data.data.map((item) => {
+            const getGame = (dataMap = data.data.map((item) => {
               // checking if game.id exists
               if (item.game_id) {
                 async function getGame() {
@@ -98,12 +98,20 @@ client.on('message', async (message) => {
                 }
                 return getGame()
               }
+            }))
+
+            let items
+            data.data.map((item) => {
+              items = item
+              return items
             })
 
-            // // Setting the embed
-            // let msg = liveEmbed(item, gameName)
-            // // Sending message out to the stream info channel
-            // return client.channels.cache.get(`${streamInfo}`).send(msg)
+            const gameName = getGame
+
+            // Setting the embed
+            let msg = liveEmbed(items, gameName)
+            // Sending message out to the stream info channel
+            return client.channels.cache.get(`${streamInfo}`).send(msg)
           } else {
             message.channel.send('Jason is currently not live.')
           }
