@@ -14,9 +14,10 @@ client.on('message', async (message) => {
     let adminCheck = accessCheck(message)
 
     // Finding the channel
-    let findChannel = client.channels.cache.find(
-      (ch) => ch.name === 'stream-info'
-    )
+    let findChannel = client.channels.cache.find((ch) => ch.name === 'testing')
+
+    // stream-info
+
     let streamInfo = findChannel.id
 
     if (command === 'forcelive') {
@@ -42,6 +43,7 @@ client.on('message', async (message) => {
         const { access_token } = data
 
         if (access_token) {
+          console.log(access_token, 'access token in force live')
           const userId = '61050409'
 
           const url = `https://api.twitch.tv/helix/streams?user_id=${userId}`
@@ -59,6 +61,7 @@ client.on('message', async (message) => {
           const { data } = await axios(options)
 
           if (data) {
+            console.log(data, 'data in forcelive')
             // Setting the discord bot activity
             client.user
               .setActivity('twitch ❤️', {
