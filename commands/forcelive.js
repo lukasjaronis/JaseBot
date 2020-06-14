@@ -92,6 +92,9 @@ client.on('message', async (message) => {
 
             const items = data.data[0]
 
+            console.log(game.name)
+            console.log(items.title)
+
             if (items && game.name) {
               // Setting the embed
               let msg = liveEmbed(items, game.name)
