@@ -97,7 +97,7 @@ client.on('message', async (message) => {
                   console.log(gameName, 'gameName')
                   return gameName
                 }
-                gameName = await getGame()
+                gameName = getGame()
                 return gameName
               }
             })
