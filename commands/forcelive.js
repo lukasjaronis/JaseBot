@@ -61,6 +61,7 @@ client.on('message', async (message) => {
 
           if (data.data.length != 0) {
             // Setting the discord bot activity
+
             client.user
               .setActivity('twitch ❤️', {
                 type: 'STREAMING',
@@ -91,6 +92,9 @@ client.on('message', async (message) => {
               gameName = data.data.name
               return gameName
             }
+
+            console.log(gameName)
+            console.log(data.data, 'data??')
             // Setting the embed
             let msg = liveEmbed(data.data, gameName)
             // Sending message out to the stream info channel
