@@ -76,8 +76,7 @@ client.on('message', async (message) => {
               // checking if game.id exists
               if (item.game_id) {
                 async function getGame(item) {
-                  const gameId = `${item.game_id}`
-                  const url = `https://api.twitch.tv/helix/games?id=${gameId}`
+                  const url = `https://api.twitch.tv/helix/games?id=${item.game_id}`
 
                   const options = {
                     method: 'get',
@@ -92,15 +91,9 @@ client.on('message', async (message) => {
                   console.log(data, 'DATTTAAA')
                   return data
                 }
-                gameName = getGame()
-
-                if (gameName) {
-                  return gameName
-                }
+                return getGame()
               }
             })
-
-            console.log(dataMap, 'datamap')
 
             // // Setting the embed
             // let msg = liveEmbed(item, gameName)
