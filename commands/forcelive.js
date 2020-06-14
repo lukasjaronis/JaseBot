@@ -92,10 +92,9 @@ client.on('message', async (message) => {
                   console.log(gameName, 'OUTSIDE')
                   axios(options).then((r) => {
                     const { data } = r
-                    console.log(data, 'DATA')
+                    let gameName
                     data.data.map((item) => {
                       gameName = item.name
-                      console.log(gameName, 'GAME NAME')
                       return gameName
                     })
                   })
