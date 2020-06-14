@@ -94,7 +94,7 @@ client.on('message', async (message) => {
             }
 
             console.log(gameName)
-            console.log(data.user_name, 'data??')
+            console.log(data.data.data.game_id, 'data??')
 
             // Setting the embed
             let msg = liveEmbed(data.data, gameName)
