@@ -98,7 +98,7 @@ client.on('message', async (message) => {
             }
 
             gameName = await getGame().then((response) => {
-              return console.log(response, 'resonse')
+              return response
             })
             if (gameName) return gameName
 
