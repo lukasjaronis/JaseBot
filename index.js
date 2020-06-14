@@ -11,8 +11,7 @@ config({
   path: __dirname + '/.env',
 })
 
-async function streamCheck() {
-  const userId = '61050409'
+async function startListener() {
   const clientId = process.env.TWITCH_CLIENT_ID
   const clientSecret = process.env.TWITCH_CLIENT_SECRET
   const twitchClient = TwitchClient.withClientCredentials(
@@ -24,52 +23,57 @@ async function streamCheck() {
     hostName: '64.227.3.188',
     port: 8098,
   })
-  listener.listen()
-
-  let prevStream = null
-  const subscription = await listener.subscribeToStreamChanges(
-    userId,
-    async (stream) => {
-      if (stream) {
-        console.log(stream, 'stream')
-        if (!prevStream) {
-          // Finding the channel
-          let findChannel = client.channels.cache.find(
-            (ch) => ch.name === 'stream-info'
-          )
-
-          let streamInfo = findChannel.id
-
-          client.user
-            .setActivity('twitch', {
-              type: 'STREAMING',
-              url: 'https://www.twitch.tv/tastejase',
-            })
-            .then((presence) =>
-              console.log(`Activity set to ${presence.activities[0].name}`)
-            )
-            .catch(console.error)
-
-          client.channels.cache
-            .get(`${streamInfo}`)
-            .send(
-              `@everyone <@&718891169802748014> <@&703360592928309279> ${stream.userDisplayName} is live! https://www.twitch.tv/tastejase 🚀🚀🚀 \n ${stream.title}`
-            )
-        }
-      } else {
-        // no stream, no display name
-        const user = await twitchClient.helix.users.getUserById(userId)
-        client.channels.cache
-          .get(`${streamInfo}`)
-          .send(`${user.displayName} just went offline.`)
-      }
-      prevStream = stream
-    }
-  )
-  return subscription
+  return listener.listen()
 }
 
-streamCheck()
+const listener = startListener()
+
+async function checkStream() {
+  if (listener) {
+    const userId = '61050409'
+    let prevStream = null
+    const subscription = await listener.subscribeToStreamChanges(
+      userId,
+      async (stream) => {
+        if (stream) {
+          console.log(stream, 'stream')
+          if (!prevStream) {
+            // Finding the channel
+            let findChannel = client.channels.cache.find(
+              (ch) => ch.name === 'stream-info'
+            )
+
+            let streamInfo = findChannel.id
+
+            client.user
+              .setActivity('twitch', {
+                type: 'STREAMING',
+                url: 'https://www.twitch.tv/tastejase',
+              })
+              .then((presence) =>
+                console.log(`Activity set to ${presence.activities[0].name}`)
+              )
+              .catch(console.error)
+
+            client.channels.cache
+              .get(`${streamInfo}`)
+              .send(
+                `@everyone <@&718891169802748014> <@&703360592928309279> ${stream.userDisplayName} is live! https://www.twitch.tv/tastejase 🚀🚀🚀 \n ${stream.title}`
+              )
+          }
+        } else {
+          // no stream, no display name
+          const user = await twitchClient.helix.users.getUserById(userId)
+          client.channels.cache
+            .get(`${streamInfo}`)
+            .send(`${user.displayName} just went offline.`)
+        }
+        prevStream = stream
+      }
+    )
+    return subscription
+  }
+}
 
 // turns commands folder into the command collection
 client.commands = new Discord.Collection()
@@ -84,7 +88,7 @@ for (const file of commandFiles) {
 
 client.once('ready', () => {
   console.log('Bot online')
-  streamCheck()
+  checkStream()
   client.user
     .setActivity('Morty', { type: 'WATCHING' })
     .then((presence) =>
