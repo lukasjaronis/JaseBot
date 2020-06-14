@@ -75,7 +75,7 @@ client.on('message', async (message) => {
             const gameId = stream.game_id
 
             const getGame = async (id) => {
-              const { data } = await axios.get(
+              const { data: results } = await axios.get(
                 `https://api.twitch.tv/helix/games?id=${id}`,
                 {
                   headers: {
@@ -85,15 +85,12 @@ client.on('message', async (message) => {
                   },
                 }
               )
-              return data.data
+              return results.data
             }
 
-            // const [game] = await getGame(gameId).catch(console.error)
-            const whatIsIt = await getGame(gameId).catch(console.error)
-            console.log(whatIsIt)
+            const [game] = await getGame(gameId).catch(console.error)
 
             const items = data.data[0]
-            console.log(items, 'items')
 
             if (items && game.name) {
               // Setting the embed
