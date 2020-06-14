@@ -22,7 +22,7 @@ async function streamCheck() {
 
   const listener = await WebHookListener.create(twitchClient, {
     hostName: '64.227.3.188',
-    port: 8095,
+    port: 8098,
   })
   listener.listen()
 
