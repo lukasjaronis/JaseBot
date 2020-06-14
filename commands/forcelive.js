@@ -43,7 +43,6 @@ client.on('message', async (message) => {
         const { access_token } = data
 
         if (access_token) {
-          console.log(access_token, 'access token in force live')
           const userId = '61050409'
 
           const url = `https://api.twitch.tv/helix/streams?user_id=${userId}`
