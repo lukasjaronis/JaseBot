@@ -88,19 +88,20 @@ client.on('message', async (message) => {
                     url,
                   }
 
+                  const { data } = await axios(options)
+
                   let gameName
-                  console.log(gameName, 'OUTSIDE')
-                  axios(options).then((r) => {
-                    const { data } = r
-                    let gameName
-                    data.data.map((item) => {
-                      gameName = item.name
-                      return gameName
-                    })
+                  data.data.map((item) => {
+                    gameName = item.name
+                    return gameName
                   })
                   return gameName
                 }
                 gameName = getGame()
+                  .then((response) => {
+                    return response
+                  })
+                  .catch((e) => console.log(e))
                 return gameName
               }
             })
