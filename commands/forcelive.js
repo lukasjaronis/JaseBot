@@ -1,4 +1,5 @@
 const client = require('../index')
+const axios = require('axios')
 const { prefix } = require('../config.json')
 const accessCheck = require('../permissions')
 const { liveEmbed } = require('../utils/messageEmbeds')
