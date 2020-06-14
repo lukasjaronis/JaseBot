@@ -74,7 +74,7 @@ client.on('message', async (message) => {
 
             data.data.map((item) => {
               if (item.game_id) {
-                
+                async function getGame(item) {
                   const gameId = `${item.game_id}`
                   const url = `https://api.twitch.tv/helix/games?id=${gameId}`
 
@@ -89,8 +89,8 @@ client.on('message', async (message) => {
                   }
                   const { data } = await axios(options)
                   return console.log(data)
-           
-             
+                }
+                return getGame()
               }
             })
 
