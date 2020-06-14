@@ -94,7 +94,6 @@ client.on('message', async (message) => {
                     gameName = item.name
                     return gameName
                   })
-                  console.log(gameName, 'gameName')
                   return gameName
                 }
                 gameName = getGame()
@@ -109,6 +108,8 @@ client.on('message', async (message) => {
             })
 
             if (items && gameName) {
+              console.log(items, 'ITEMS')
+              console.log(gameName, 'game name')
               // Setting the embed
               let msg = liveEmbed(items, gameName)
               // Sending message out to the stream info channel
