@@ -71,7 +71,7 @@ async function checkStream() {
             }
 
             const { data } = await axios(options)
-            gameName = data.name
+            gameName = data.data.name
             return gameName
           }
 

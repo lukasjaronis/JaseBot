@@ -60,11 +60,7 @@ client.on('message', async (message) => {
 
           const { data } = await axios(options)
 
-          console.log(data.length, 'data length')
-          console.log(data.data.length, 'data data length')
-
-          if (data.data != undefined || data.data.length != 0) {
-            console.log(data.data, 'data in forcelive')
+          if (data.data.length != 0) {
             // Setting the discord bot activity
             client.user
               .setActivity('twitch ❤️', {
@@ -78,8 +74,8 @@ client.on('message', async (message) => {
 
             // Checking if data.game_id exists, meaning if game is set
             let gameName
-            if (data.game_id) {
-              const gameId = `${data.game_id}`
+            if (data.data.game_id) {
+              const gameId = `${data.data.game_id}`
               const url = `https://api.twitch.tv/helix/games?id=${gameId}`
 
               const options = {
@@ -93,7 +89,7 @@ client.on('message', async (message) => {
               }
 
               const { data } = await axios(options)
-              gameName = data.name
+              gameName = data.data.name
               return gameName
             }
             // Setting the embed
