@@ -60,8 +60,10 @@ client.on('message', async (message) => {
 
           const { data } = await axios(options)
 
-          if (data) {
-            console.log(data, 'data in forcelive')
+          console.log(data.data, 'before data.data')
+
+          if (data.data) {
+            console.log(data.data, 'data in forcelive')
             // Setting the discord bot activity
             client.user
               .setActivity('twitch ❤️', {
