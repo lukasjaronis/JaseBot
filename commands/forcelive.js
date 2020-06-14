@@ -72,42 +72,43 @@ client.on('message', async (message) => {
               .catch(console.error)
 
             let gameName
-            data.data.map(async (item) => {
-              // checking if game.id exists
-              if (item.game_id) {
-                const getGame = async () => {
-                  try {
-                    const url = `https://api.twitch.tv/helix/games?id=${item.game_id}`
+            await Promise.all(
+              data.data.map(async (item) => {
+                // checking if game.id exists
+                if (item.game_id) {
+                  const getGame = async () => {
+                    try {
+                      const url = `https://api.twitch.tv/helix/games?id=${item.game_id}`
 
-                    const options = {
-                      method: 'get',
-                      headers: {
-                        'content-type': 'application/json',
-                        'Client-Id': process.env.TWITCH_CLIENT_ID,
-                        Authorization: `Bearer ${access_token}`,
-                      },
-                      url,
-                    }
+                      const options = {
+                        method: 'get',
+                        headers: {
+                          'content-type': 'application/json',
+                          'Client-Id': process.env.TWITCH_CLIENT_ID,
+                          Authorization: `Bearer ${access_token}`,
+                        },
+                        url,
+                      }
 
-                    const response = await axios(options)
-                    const { data } = await response
-                    Promise.all([data])
+                      const response = await axios(options)
+                      const result = await Promise.all()
 
-                    let gameName
-                    data.data.map((item) => {
-                      gameName = item.name
+                      let gameName
+                      data.data.map((item) => {
+                        gameName = item.name
+                        return gameName
+                      })
+                      console.log(gameName, 'inside try')
                       return gameName
-                    })
-                    console.log(gameName, 'inside try')
-                    return gameName
-                  } catch (error) {
-                    console.log(error)
+                    } catch (error) {
+                      console.log(error)
+                    }
                   }
+                  gameName = await getGame()
+                  if (gameName) return gameName
                 }
-                gameName = await getGame()
-                if (gameName) return gameName
-              }
-            })
+              })
+            )
 
             console.log(gameName, 'game name')
 
