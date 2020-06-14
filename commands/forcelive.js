@@ -57,11 +57,7 @@ client.on('message', async (message) => {
             url,
           }
 
-          const allData = await axios(options)
-
-          const { data } = allData
-
-          console.log(data, 'DATAAAAAA')
+          const { data } = await axios(options)
 
           if (data.data.length != 0) {
             // Setting the discord bot activity
@@ -75,6 +71,10 @@ client.on('message', async (message) => {
                 console.log(`Activity set to ${presence.activities[0].name}`)
               )
               .catch(console.error)
+
+            data.data.map((item) => {
+              console.log(item, 'item')
+            })
 
             // Checking if data.game_id exists, meaning if game is set
             let gameName
