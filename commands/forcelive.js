@@ -92,14 +92,14 @@ client.on('message', async (message) => {
 
             const items = data.data[0]
 
-            console.log(game.name)
-            console.log(items.title)
-
             if (items && game.name) {
               // Setting the embed
               let msg = liveEmbed(items, game.name)
+              let msgTwo = '@everyone \n '
               // Sending message out to the stream info channel
-              return client.channels.cache.get(`${streamInfo}`).send(msg)
+              return client.channels.cache
+                .get(`${streamInfo}`)
+                .send(msgTwo, msg)
             }
           } else {
             message.channel.send('Jason is currently not live.')
