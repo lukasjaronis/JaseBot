@@ -102,7 +102,13 @@ client.on('message', async (message) => {
                     console.log(error)
                   }
                 }
-                gameName = getGame()
+
+                let gameName
+                getGame().then((response) => {
+                  gameName = response
+                  return gameName
+                })
+
                 return gameName
               }
             })
