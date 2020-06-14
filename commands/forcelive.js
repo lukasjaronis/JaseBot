@@ -76,20 +76,21 @@ client.on('message', async (message) => {
               // checking if game.id exists
               if (item.game_id) {
                 async function getGame(item) {
-                  const url = `https://api.twitch.tv/helix/games?id=${item.game_id}`
+                  console.log(item, 'item')
+                  // const url = `https://api.twitch.tv/helix/games?id=${item.game_id}`
 
-                  const options = {
-                    method: 'get',
-                    headers: {
-                      'content-type': 'application/json',
-                      'Client-Id': process.env.TWITCH_CLIENT_ID,
-                      Authorization: `Bearer ${access_token}`,
-                    },
-                    url,
-                  }
-                  const { data } = await axios(options)
-                  console.log(data, 'DATTTAAA')
-                  return data
+                  // const options = {
+                  //   method: 'get',
+                  //   headers: {
+                  //     'content-type': 'application/json',
+                  //     'Client-Id': process.env.TWITCH_CLIENT_ID,
+                  //     Authorization: `Bearer ${access_token}`,
+                  //   },
+                  //   url,
+                  // }
+                  // const { data } = await axios(options)
+                  // console.log(data, 'DATTTAAA')
+                  // return data
                 }
                 return getGame()
               }
