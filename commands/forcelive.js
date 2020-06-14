@@ -87,9 +87,11 @@ client.on('message', async (message) => {
                   url,
                 }
 
-                const { data } = axios(options).then((response) => {
-                  return response
+                const data = axios(options).then((response) => {
+                  return response.data
                 })
+
+                console.log(data, 'data')
 
                 let gameName
                 data.data.map((item) => {
