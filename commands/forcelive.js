@@ -69,10 +69,10 @@ client.on('message', async (message) => {
               .then((presence) =>
                 console.log(`Activity set to ${presence.activities[0].name}`)
               )
-              .catch(console.error)   
+              .catch(console.error)
 
             let gameName
-            data.data.map((item) => {
+            data.data.map(async (item) => {
               // checking if game.id exists
               if (item.game_id) {
                 const getGame = async () => {
