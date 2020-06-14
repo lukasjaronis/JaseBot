@@ -92,11 +92,12 @@ client.on('message', async (message) => {
             const [game] = await getGame(gameId).catch(console.error)
             console.log(game.name, 'game.name')
 
-            const lastItem = data.data[data.data.length - 1]
+            const items = data.data[0]
+            console.log(items, 'items')
 
-            if (lastItem && gameName) {
+            if (items && game.name) {
               // Setting the embed
-              let msg = liveEmbed(items, gameName)
+              let msg = liveEmbed(items, game.name)
               // Sending message out to the stream info channel
               return client.channels.cache.get(`${streamInfo}`).send(msg)
             }
