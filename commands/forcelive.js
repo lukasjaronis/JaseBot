@@ -91,6 +91,7 @@ client.on('message', async (message) => {
 
                     const response = await axios(options)
                     const { data } = await response
+                    Promise.all([data])
 
                     let gameName
                     data.data.map((item) => {
