@@ -74,9 +74,7 @@ client.on('message', async (message) => {
             let gameName
             data.data.map((item) => {
               // checking if game.id exists
-              if (item.game_id) {
-                const getGame = async () => {
-                  try {
+              if (item.game_id) { 
                     const url = `https://api.twitch.tv/helix/games?id=${item.game_id}`
 
                     const options = {
@@ -89,22 +87,15 @@ client.on('message', async (message) => {
                       url,
                     }
 
-                    const { data } = await axios(options)
+                    const { data } = await axios(options).then(response => {return response})
 
                     let gameName
                     data.data.map((item) => {
                       gameName = item.name
                       return gameName
                     })
-                    console.log(gameName, 'inside try')
                     return gameName
-                  } catch (error) {
-                    console.log(error)
-                  }
-                }
-                gameName = getGame()
-                if (gameName) return gameName
-              }
+                } 
             })
 
             console.log(gameName, 'game name')
