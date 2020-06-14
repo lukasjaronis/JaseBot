@@ -75,6 +75,7 @@ client.on('message', async (message) => {
             data.data.map((item) => {
               if (item.game_id) {
                 async function getGame(item) {
+                  console.log(item.game_id)
                   const gameId = `${item.game_id}`
                   const url = `https://api.twitch.tv/helix/games?id=${gameId}`
 
