@@ -57,17 +57,14 @@ client.on('message', async (message) => {
             url,
           }
 
-          const data = await axios(options)
+          const allData = await axios(options)
 
-          console.log(data.data.id, 'data')
+          const { data } = allData
+
+          console.log(data, 'DATAAAAAA')
 
           if (data.data.length != 0) {
             // Setting the discord bot activity
-
-            console.log(data.data, 'data')
-
-            const { title } = data.data
-            console.log(title, 'title')
 
             client.user
               .setActivity('twitch ❤️', {
