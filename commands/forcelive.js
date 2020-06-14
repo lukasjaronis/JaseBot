@@ -72,12 +72,12 @@ client.on('message', async (message) => {
               .catch(console.error)
 
             const getGame = async () => {
-              const itemWithGameId = data.data.find((i) => i.game_id)
+              const itemWithGameId = data.data.find((i) => i)
 
-              console.log(itemWithGameId.game_id, 'item')
+              const { game_id } = itemWithGameId
 
               try {
-                const url = `https://api.twitch.tv/helix/games?id=${itemWithGameId.game_id}`
+                const url = `https://api.twitch.tv/helix/games?id=${game_id}`
 
                 const options = {
                   method: 'get',
@@ -90,6 +90,7 @@ client.on('message', async (message) => {
                 }
 
                 const response = await axios(options)
+                console.log(response, 'response')
               } catch (error) {
                 console.log(error)
               }
