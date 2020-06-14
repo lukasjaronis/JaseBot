@@ -74,28 +74,30 @@ client.on('message', async (message) => {
             let gameName
             data.data.map((item) => {
               // checking if game.id exists
-              if (item.game_id) { 
-                    const url = `https://api.twitch.tv/helix/games?id=${item.game_id}`
+              if (item.game_id) {
+                const url = `https://api.twitch.tv/helix/games?id=${item.game_id}`
 
-                    const options = {
-                      method: 'get',
-                      headers: {
-                        'content-type': 'application/json',
-                        'Client-Id': process.env.TWITCH_CLIENT_ID,
-                        Authorization: `Bearer ${access_token}`,
-                      },
-                      url,
-                    }
+                const options = {
+                  method: 'get',
+                  headers: {
+                    'content-type': 'application/json',
+                    'Client-Id': process.env.TWITCH_CLIENT_ID,
+                    Authorization: `Bearer ${access_token}`,
+                  },
+                  url,
+                }
 
-                    const { data } = await axios(options).then(response => {return response})
+                const { data } = axios(options).then((response) => {
+                  return response
+                })
 
-                    let gameName
-                    data.data.map((item) => {
-                      gameName = item.name
-                      return gameName
-                    })
-                    return gameName
-                } 
+                let gameName
+                data.data.map((item) => {
+                  gameName = item.name
+                  return gameName
+                })
+                return gameName
+              }
             })
 
             console.log(gameName, 'game name')
