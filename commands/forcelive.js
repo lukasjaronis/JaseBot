@@ -72,7 +72,9 @@ client.on('message', async (message) => {
               .catch(console.error)
 
             const getGame = async () => {
-              const itemWithGameId = data.data.find((i) => i.game_id)
+              const itemWithGameId = data.data.find((i) => {
+                return i.game_id
+              })
 
               console.log(itemWithGameId, 'item')
 
@@ -90,7 +92,6 @@ client.on('message', async (message) => {
                 }
 
                 const response = await axios(options)
-                console.log(response, 'RESPONSE')
               } catch (error) {
                 console.log(error)
               }
