@@ -12,68 +12,75 @@ config({
 })
 
 async function startListener() {
-  const clientId = process.env.TWITCH_CLIENT_ID
-  const clientSecret = process.env.TWITCH_CLIENT_SECRET
-  const twitchClient = TwitchClient.withClientCredentials(
-    clientId,
-    clientSecret
-  )
-
   const listener = await WebHookListener.create(twitchClient, {
     hostName: '64.227.3.188',
     port: 8098,
   })
-  return listener.listen()
+  listener.listen()
 }
 
-const listener = startListener()
+// start the listener
+startListener()
 
-async function checkStream() {
-  if (listener) {
-    const userId = '61050409'
-    let prevStream = null
-    const subscription = await listener.subscribeToStreamChanges(
-      userId,
-      async (stream) => {
-        if (stream) {
-          console.log(stream, 'stream')
-          if (!prevStream) {
-            // Finding the channel
-            let findChannel = client.channels.cache.find(
-              (ch) => ch.name === 'stream-info'
-            )
+// async function checkStream() {
+//   const userId = '61050409'
+//   const clientId = process.env.TWITCH_CLIENT_ID
+//   const clientSecret = process.env.TWITCH_CLIENT_SECRET
+//   const twitchClient = TwitchClient.withClientCredentials(
+//     clientId,
+//     clientSecret
+//   )
 
-            let streamInfo = findChannel.id
+//   const listener = await WebHookListener.create(twitchClient, {
+//     hostName: '64.227.3.188',
+//     port: 8098,
+//   })
+//   listener.listen()
 
-            client.user
-              .setActivity('twitch', {
-                type: 'STREAMING',
-                url: 'https://www.twitch.tv/tastejase',
-              })
-              .then((presence) =>
-                console.log(`Activity set to ${presence.activities[0].name}`)
-              )
-              .catch(console.error)
+//   let prevStream = null
+//   const subscription = await listener.subscribeToStreamChanges(
+//     userId,
+//     async (stream) => {
+//       if (stream) {
+//         console.log(stream, 'stream')
+//         if (!prevStream) {
+//           // Finding the channel
+//           let findChannel = client.channels.cache.find(
+//             (ch) => ch.name === 'stream-info'
+//           )
 
-            client.channels.cache
-              .get(`${streamInfo}`)
-              .send(
-                `@everyone <@&718891169802748014> <@&703360592928309279> ${stream.userDisplayName} is live! https://www.twitch.tv/tastejase 🚀🚀🚀 \n ${stream.title}`
-              )
-          }
-        } else {
-          // no stream, no display name
-          const user = await twitchClient.helix.users.getUserById(userId)
-          client.channels.cache
-            .get(`${streamInfo}`)
-            .send(`${user.displayName} just went offline.`)
-        }
-        prevStream = stream
-      }
-    )
-    return subscription
-  }
-}
+//           let streamInfo = findChannel.id
+
+//           client.user
+//             .setActivity('twitch', {
+//               type: 'STREAMING',
+//               url: 'https://www.twitch.tv/tastejase',
+//             })
+//             .then((presence) =>
+//               console.log(`Activity set to ${presence.activities[0].name}`)
+//             )
+//             .catch(console.error)
+
+//           client.channels.cache
+//             .get(`${streamInfo}`)
+//             .send(
+//               `@everyone <@&718891169802748014> <@&703360592928309279> ${stream.userDisplayName} is live! https://www.twitch.tv/tastejase 🚀🚀🚀 \n ${stream.title}`
+//             )
+//         }
+//       } else {
+//         // no stream, no display name
+//         const user = await twitchClient.helix.users.getUserById(userId)
+//         client.channels.cache
+//           .get(`${streamInfo}`)
+//           .send(`${user.displayName} just went offline.`)
+//       }
+//       prevStream = stream
+//     }
+//   )
+//   return subscription
+// }
+
+// checkStream()
 
 // turns commands folder into the command collection
 client.commands = new Discord.Collection()
@@ -88,7 +95,8 @@ for (const file of commandFiles) {
 
 client.once('ready', () => {
   console.log('Bot online')
-  checkStream()
+  const listen = WebHookListener.listen()
+  console.log(listen, 'listen')
   client.user
     .setActivity('Morty', { type: 'WATCHING' })
     .then((presence) =>
