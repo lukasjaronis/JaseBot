@@ -75,31 +75,36 @@ client.on('message', async (message) => {
             data.data.map((item) => {
               // checking if game.id exists
               if (item.game_id) {
-                const url = `https://api.twitch.tv/helix/games?id=${item.game_id}`
+                const getGame = async () => {
+                  try {
+                    const url = `https://api.twitch.tv/helix/games?id=${item.game_id}`
 
-                const options = {
-                  method: 'get',
-                  headers: {
-                    'content-type': 'application/json',
-                    'Client-Id': process.env.TWITCH_CLIENT_ID,
-                    Authorization: `Bearer ${access_token}`,
-                  },
-                  url,
-                }
+                    const options = {
+                      method: 'get',
+                      headers: {
+                        'content-type': 'application/json',
+                        'Client-Id': process.env.TWITCH_CLIENT_ID,
+                        Authorization: `Bearer ${access_token}`,
+                      },
+                      url,
+                    }
 
-                const data = axios(options).then((response) => {
-                  return response.data
-                })
+                    const response = await axios(options)
+                    const { data } = await response
 
-                let gameName
-                if (data) {
-                  data.data.map((item) => {
-                    gameName = item.name
+                    let gameName
+                    data.data.map((item) => {
+                      gameName = item.name
+                      return gameName
+                    })
+                    console.log(gameName, 'inside try')
                     return gameName
-                  })
+                  } catch (error) {
+                    console.log(error)
+                  }
                 }
-
-                return gameName
+                gameName = getGame()
+                if (gameName) return gameName
               }
             })
 
