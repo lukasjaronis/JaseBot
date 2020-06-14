@@ -101,6 +101,7 @@ client.on('message', async (message) => {
                     console.log(error)
                   }
                   gameName = getGame()
+                  console.log(gameName, 'inside if')
                   return gameName
                 }
               }
