@@ -55,9 +55,9 @@ async function checkStream() {
             )
             .catch(console.error)
 
-          const { data } = stream
-          console.log(data, 'data?')
-          console.log(data.title, 'title')
+          const { _data } = stream
+          console.log(_data, 'data?')
+          console.log(_data.title, 'title')
 
           let gameName
           if (stream.gameId) {
