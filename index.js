@@ -56,21 +56,33 @@ async function checkStream() {
             .catch(console.error)
 
           const { _data } = stream
-          console.log(_data, 'data?')
-          console.log(_data.title, 'title')
 
-          let gameName
-          if (stream.gameId) {
-            gameName = await stream.getGame()
-            return gameName
+          const getGame = async (id) => {
+            const { data: results } = await axios.get(
+              `https://api.twitch.tv/helix/games?id=${id}`,
+              {
+                headers: {
+                  'content-type': 'application/json',
+                  'Client-Id': process.env.TWITCH_CLIENT_ID,
+                  Authorization: `Bearer ${access_token}`,
+                },
+              }
+            )
+            return results.data
           }
 
-          console.log(gameName, 'game name in index')
+          const [game] = await getGame(_data.game_id).catch(console.error)
 
-          let msg = liveEmbed(stream, gameName)
+          let msg = liveEmbed(_data, game.name)
           return client.channels.cache.get(`${streamInfo}`).send(msg)
         }
       } else {
+        // Finding the channel
+        let findChannel = client.channels.cache.find(
+          (ch) => ch.name === post_channel
+        )
+
+        let streamInfo = findChannel.id
         // no stream, no display name
         const user = await twitchClient.helix.users.getUserById(userId)
         client.channels.cache
