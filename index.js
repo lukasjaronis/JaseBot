@@ -45,7 +45,7 @@ async function checkStream() {
       if (stream) {
         if (!prevStream) {
           const { _data } = stream
-          const prevStream = _.data.game_id
+          const prevStream = _data.game_id
 
           if (prevStream != _data.game_id) {
             console.log('games have changed!!!!')
