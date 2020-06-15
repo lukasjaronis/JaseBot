@@ -45,10 +45,6 @@ async function checkStream() {
       if (stream) {
         if (!prevStream) {
           const { _data } = stream
-          const prevStream = await _data.game_id
-
-          console.log(prevStream, 'PREV GAME ID')
-          console.log(_data.game_id, 'CURRENT GAME ID')
 
           const url = 'https://id.twitch.tv/oauth2/token'
 
@@ -107,7 +103,9 @@ async function checkStream() {
 
           client.channels.cache.get(`${streamInfo}`).send(detect_text, msg)
 
-          client.channels.cache.get(`${streamInfo}`).send(twitch_url)
+          client.channels.cache
+            .get(`${streamInfo}`)
+            .send('Come watch!', twitch_url)
         }
       } else {
         // Finding the channel
@@ -128,7 +126,7 @@ async function checkStream() {
           .fetch({ limit: 30 })
           .then((collected) => {
             collected.forEach((msg) => {
-              if (msg.content.startsWith(detect_text)) {
+              if (msg.content.startsWith(detect_text && 'Come')) {
                 msg.delete()
               }
             })
