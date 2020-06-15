@@ -93,8 +93,6 @@ async function checkStream() {
             )
             .catch(console.error)
 
-          const { _data } = stream
-
           const getGame = async (id) => {
             const { data: results } = await axios.get(
               `https://api.twitch.tv/helix/games?id=${id}`,
