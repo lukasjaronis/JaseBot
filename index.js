@@ -45,47 +45,30 @@ async function checkStream() {
       if (stream) {
         if (!prevStream) {
           const { _data } = stream
-          const prevStream = _data.game_id
+          const prevStream = await _data.game_id
 
           console.log(prevStream, 'PREV GAME ID')
           console.log(_data.game_id, 'CURRENT GAME ID')
 
-          // const url = 'https://id.twitch.tv/oauth2/token'
+          const url = 'https://id.twitch.tv/oauth2/token'
 
-          // const requestData = {
-          //   client_id: process.env.TWITCH_CLIENT_ID,
-          //   client_secret: process.env.TWITCH_CLIENT_SECRET,
-          //   grant_type: 'client_credentials',
-          // }
+          const requestData = {
+            client_id: process.env.TWITCH_CLIENT_ID,
+            client_secret: process.env.TWITCH_CLIENT_SECRET,
+            grant_type: 'client_credentials',
+          }
 
-          // const options = {
-          //   method: 'post',
-          //   headers: {
-          //     'content-type': 'application/json',
-          //   },
-          //   data: requestData,
-          //   url,
-          // }
+          const options = {
+            method: 'post',
+            headers: {
+              'content-type': 'application/json',
+            },
+            data: requestData,
+            url,
+          }
 
-          const { data: results } = await axios.post(
-            `https://id.twitch.tv/oauth2/token`,
-            {
-              headers: {
-                'content-type': 'application/json',
-              },
-              data: {
-                client_id: process.env.TWITCH_CLIENT_ID,
-                client_secret: process.env.TWITCH_CLIENT_SECRET,
-                grant_type: 'client_credentials',
-              },
-            }
-          )
-
-          const { access_token } = results.data
-
-          console.log(access_token, 'access')
-          // const { data } = await axios(options)
-          // const { access_token } = data
+          const { data } = await axios(options)
+          const { access_token } = data
 
           // Finding the channel
           let findChannel = client.channels.cache.find(
