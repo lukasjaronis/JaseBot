@@ -78,7 +78,7 @@ const liveEmbed = (data, game) => {
     .setColor('#87E5FF')
     .setTitle('Jason is live!  🚀🚀🚀 ')
     .setDescription(data.title)
-    .addField('Playing ', game)
+    .addField('Playing ', game ? game : 'something i cannot detect :(')
     .setImage(
       `https://static-cdn.jtvnw.net/previews-ttv/live_user_tastejase-600x400.jpg?time=${unixTime}`
     )

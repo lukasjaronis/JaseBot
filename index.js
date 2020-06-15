@@ -5,7 +5,12 @@ const fs = require('fs')
 const Discord = require('discord.js')
 const { config } = require('dotenv')
 const client = new Discord.Client()
-const { twitch_user_id, post_channel } = require('./user')
+const {
+  twitch_user_id,
+  post_channel,
+  detect_text,
+  twitch_url,
+} = require('./user')
 
 const { liveEmbed } = require('./utils/messageEmbeds')
 
@@ -94,10 +99,12 @@ async function checkStream() {
           const [game] = await getGame(_data.game_id).catch(console.error)
 
           let msg = liveEmbed(_data, game.name)
-          let msgEveryone = '@everyone'
+          let msgEveryone = detect_text
+          let msgUrl = twitch_url
+
           return client.channels.cache
             .get(`${streamInfo}`)
-            .send(msgEveryone, msg)
+            .send(msgEveryone, msg, msgUrl)
         }
       } else {
         // Finding the channel
@@ -114,11 +121,12 @@ async function checkStream() {
 
         // Get info of stream-info and handle message deletions
         let getStreamInfo = client.channels.cache.get('700889883056799854')
+        console.log(getStreamInfo, 'get stream info')
         await getStreamInfo.messages
           .fetch({ limit: 30 })
           .then((collected) => {
             collected.forEach((msg) => {
-              if (msg.content.startsWith('@everyone')) {
+              if (msg.content.startsWith(detect_text)) {
                 msg.delete()
               }
             })
