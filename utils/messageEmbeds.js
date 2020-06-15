@@ -74,7 +74,7 @@ const cmdsEmbed = () => {
 const liveEmbed = (data, game) => {
   return new Discord.MessageEmbed()
     .setColor('#87E5FF')
-    .setTitle('Jason is live! 🚀🚀🚀')
+    .setTitle('Jason is live!  🚀🚀🚀 ')
     .setDescription(data.title)
     .addField('Playing ', game)
     .setImage(
