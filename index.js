@@ -44,6 +44,18 @@ async function checkStream() {
     async (stream) => {
       if (stream) {
         if (!prevStream) {
+          let prevGameID
+          const { _data } = stream
+          prevGameID = _data.game_id
+
+          if (_data.game_id != prevGameID) {
+            console.log('games changed!')
+            console.log(_data.game_id)
+            console.log(prevGameID)
+          } else {
+            console.log('games did not change!')
+          }
+
           const url = 'https://id.twitch.tv/oauth2/token'
 
           const requestData = {
@@ -100,12 +112,10 @@ async function checkStream() {
           const [game] = await getGame(_data.game_id).catch(console.error)
 
           let msg = liveEmbed(_data, game.name)
-          let msgEveryone = detect_text
-          let msgUrl = twitch_url
 
           return client.channels.cache
             .get(`${streamInfo}`)
-            .send(msgEveryone, msg, msgUrl)
+            .send(detect_text, msg, twitch_url)
         }
       } else {
         // Finding the channel
