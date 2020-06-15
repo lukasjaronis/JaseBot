@@ -37,7 +37,6 @@ async function checkStream() {
     userId,
     async (stream) => {
       if (stream) {
-        console.log(stream, 'stream')
         if (!prevStream) {
           // Finding the channel
           let findChannel = client.channels.cache.find(
@@ -55,6 +54,10 @@ async function checkStream() {
               console.log(`Activity set to ${presence.activities[0].name}`)
             )
             .catch(console.error)
+
+          console.log(stream.gameId, 'game ID')
+          console.log(stream.title, 'stream title')
+          console.log(await stream.getGame(), 'the game?')
 
           let gameName
           if (stream.gameId) {
