@@ -5,6 +5,7 @@ const fs = require('fs')
 const Discord = require('discord.js')
 const { config } = require('dotenv')
 const client = new Discord.Client()
+const { twitch_user_id, post_channel } = require('./user')
 
 const { liveEmbed } = require('./utils/messageEmbeds')
 
@@ -17,7 +18,7 @@ config({
 
 // The webhook listener needs an initial state, so it has to detect that the streamer is live first.
 async function checkStream() {
-  const userId = '61050409'
+  const userId = twitch_user_id
   const clientId = process.env.TWITCH_CLIENT_ID
   const clientSecret = process.env.TWITCH_CLIENT_SECRET
   const twitchClient = TwitchClient.withClientCredentials(
@@ -40,7 +41,7 @@ async function checkStream() {
         if (!prevStream) {
           // Finding the channel
           let findChannel = client.channels.cache.find(
-            (ch) => ch.name === 'stream-info'
+            (ch) => ch.name === post_channel
           )
 
           let streamInfo = findChannel.id
@@ -57,23 +58,11 @@ async function checkStream() {
 
           let gameName
           if (stream.gameId) {
-            const gameId = `${data.game_id}`
-            const url = `https://api.twitch.tv/helix/games?id=${gameId}`
-
-            const options = {
-              method: 'get',
-              headers: {
-                'content-type': 'application/json',
-                'Client-Id': process.env.TWITCH_CLIENT_ID,
-                Authorization: `Bearer ${access_token}`,
-              },
-              url,
-            }
-
-            const { data } = await axios(options)
-            gameName = data.data.name
+            gameName = await stream.getGame()
             return gameName
           }
+
+          console.log(gameName, 'game name in index')
 
           let msg = liveEmbed(stream, gameName)
           return client.channels.cache.get(`${streamInfo}`).send(msg)
@@ -91,7 +80,7 @@ async function checkStream() {
   return subscription
 }
 
-// checkStream()
+checkStream()
 
 // turns commands folder into the command collection
 client.commands = new Discord.Collection()
