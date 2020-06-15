@@ -1,7 +1,9 @@
 // Development
-export const twitch_user_id = '238273761'
-export const post_channel = 'testing'
+const twitch_user_id = '238273761'
+const post_channel = 'testing'
 
 // Production
-// export const twitch_user_id = '61050409'
-// export const post_channel = "stream-info"
+// const twitch_user_id = '61050409'
+// const post_channel = "stream-info"
+
+module.exports = { twitch_user_id, post_channel }
