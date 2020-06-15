@@ -95,16 +95,9 @@ client.on('message', async (message) => {
             if (items && game.name) {
               // Setting the embed
               let msg = liveEmbed(items, game.name)
-
-              if (command.includes('-silent')) {
-                console.log(command, 'silent command')
-              }
-
-              let msgTwo = '@everyone \n '
+              // let msgTwo = '@everyone \n '
               // Sending message out to the stream info channel
-              return client.channels.cache
-                .get(`${streamInfo}`)
-                .send(msgTwo, msg)
+              return client.channels.cache.get(`${streamInfo}`).send(msg)
             }
           } else {
             message.channel.send('Jason is currently not live.')
