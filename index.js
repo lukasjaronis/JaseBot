@@ -113,7 +113,7 @@ async function checkStream() {
 
           return client.channels.cache
             .get(`${streamInfo}`)
-            .send(detect_text, msg, twitch_url)
+            .send(detect_text, msg, `${twitch_url}`)
         }
       } else {
         // Finding the channel
