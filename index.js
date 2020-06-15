@@ -45,8 +45,11 @@ async function checkStream() {
       if (stream) {
         if (!prevStream) {
           const { _data } = stream
+          const prevStream = _.data.game_id
 
-          console.log(_data.game_id, 'GAME ID')
+          if (prevStream != _data.game_id) {
+            console.log('games have changed!!!!')
+          }
 
           const url = 'https://id.twitch.tv/oauth2/token'
 

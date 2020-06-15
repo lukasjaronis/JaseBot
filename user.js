@@ -3,7 +3,7 @@ const twitch_user_id = '238273761'
 const post_channel = 'testing'
 const post_channel_id = '701844825326092389'
 const detect_text = 'lukas'
-const twitch_url = 'www.google.com'
+const twitch_url = 'https://www.twitch.tv/touchmybitcoin'
 
 // Production
 // const twitch_user_id = '61050409'
