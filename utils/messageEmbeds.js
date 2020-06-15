@@ -72,13 +72,15 @@ const cmdsEmbed = () => {
 }
 
 const liveEmbed = (data, game) => {
+  const unixTime = Math.round(new Date().getTime() / 1000)
+
   return new Discord.MessageEmbed()
     .setColor('#87E5FF')
     .setTitle('Jason is live!  🚀🚀🚀 ')
     .setDescription(data.title)
     .addField('Playing ', game)
     .setImage(
-      'https://static-cdn.jtvnw.net/previews-ttv/live_user_tastejase-600x400.jpg'
+      `https://static-cdn.jtvnw.net/previews-ttv/live_user_tastejase-600x400.jpg?time=${unixTime}`
     )
     .setTimestamp()
 }
