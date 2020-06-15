@@ -94,7 +94,10 @@ async function checkStream() {
           const [game] = await getGame(_data.game_id).catch(console.error)
 
           let msg = liveEmbed(_data, game.name)
-          return client.channels.cache.get(`${streamInfo}`).send(msg)
+          let msgEveryone = '@everyone'
+          return client.channels.cache
+            .get(`${streamInfo}`)
+            .send(msgEveryone, msg)
         }
       } else {
         // Finding the channel
@@ -108,6 +111,19 @@ async function checkStream() {
         client.channels.cache
           .get(`${streamInfo}`)
           .send(`${user.displayName} just went offline.`)
+
+        // Get info of stream-info and handle message deletions
+        let getStreamInfo = client.channels.cache.get('700889883056799854')
+        await getStreamInfo.messages
+          .fetch({ limit: 30 })
+          .then((collected) => {
+            collected.forEach((msg) => {
+              if (msg.content.startsWith('@everyone')) {
+                msg.delete()
+              }
+            })
+          })
+          .catch((error) => console.log(error))
       }
       prevStream = stream
     }
