@@ -44,17 +44,9 @@ async function checkStream() {
     async (stream) => {
       if (stream) {
         if (!prevStream) {
-          let prevGameID
           const { _data } = stream
-          prevGameID = _data.game_id
 
-          if (_data.game_id != prevGameID) {
-            console.log('games changed!')
-            console.log(_data.game_id)
-            console.log(prevGameID)
-          } else {
-            console.log('games did not change!')
-          }
+          console.log(_data.game_id, 'GAME ID')
 
           const url = 'https://id.twitch.tv/oauth2/token'
 
@@ -113,7 +105,7 @@ async function checkStream() {
 
           return client.channels.cache
             .get(`${streamInfo}`)
-            .send(detect_text, msg, `${twitch_url}`)
+            .send(`${detect_text} \n ${twitch_url}`, msg)
         }
       } else {
         // Finding the channel
