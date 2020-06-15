@@ -8,6 +8,7 @@ const client = new Discord.Client()
 const {
   twitch_user_id,
   post_channel,
+  post_channel_id,
   detect_text,
   twitch_url,
 } = require('./user')
@@ -120,8 +121,7 @@ async function checkStream() {
           .send(`${user.displayName} just went offline.`)
 
         // Get info of stream-info and handle message deletions
-        let getStreamInfo = client.channels.cache.get('700889883056799854')
-        console.log(getStreamInfo, 'get stream info')
+        let getStreamInfo = client.channels.cache.get(post_channel_id)
         await getStreamInfo.messages
           .fetch({ limit: 30 })
           .then((collected) => {
