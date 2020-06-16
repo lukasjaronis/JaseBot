@@ -49,7 +49,29 @@ async function checkStream() {
         const { gameId } = stream // deconsutructing game id
 
         if (prevGame !== gameId) {
-          console.log(await stream.getGame(), 'game information?')
+          const { name } = await stream.getGame()
+
+          let msg = liveEmbed(stream, name)
+
+          // Finding the channel
+          let findChannel = client.channels.cache.find(
+            (ch) => ch.name === post_channel
+          )
+
+          let streamInfo = findChannel.id
+
+          client.channels.cache.get(`${streamInfo}`).send(msg)
+
+          // Get info of stream-info and handle message deletions
+          let getStreamInfo = client.channels.cache.get(post_channel_id)
+          await getStreamInfo.messages
+            .fetch({ limit: 30 })
+            .then((collected) => {
+              collected.forEach((msg) => {
+                msg.delete()
+              })
+            })
+            .catch((error) => console.log(error))
         }
 
         prevGame = gameId
@@ -117,7 +139,7 @@ async function checkStream() {
         )
 
         let streamInfo = findChannel.id
-        // no stream, no display name
+
         const user = await twitchClient.helix.users.getUserById(userId)
         client.channels.cache
           .get(`${streamInfo}`)
