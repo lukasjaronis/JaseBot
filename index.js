@@ -13,6 +13,8 @@ const {
   twitch_url,
 } = require('./user')
 
+const { access_token } = require('./access_token')
+
 const { liveEmbed } = require('./utils/messageEmbeds')
 
 module.exports = client
@@ -44,28 +46,6 @@ async function checkStream() {
     async (stream) => {
       if (stream) {
         if (!prevStream) {
-          const { _data } = stream
-
-          const url = 'https://id.twitch.tv/oauth2/token'
-
-          const requestData = {
-            client_id: process.env.TWITCH_CLIENT_ID,
-            client_secret: process.env.TWITCH_CLIENT_SECRET,
-            grant_type: 'client_credentials',
-          }
-
-          const options = {
-            method: 'post',
-            headers: {
-              'content-type': 'application/json',
-            },
-            data: requestData,
-            url,
-          }
-
-          const { data } = await axios(options)
-          const { access_token } = data
-
           // Finding the channel
           let findChannel = client.channels.cache.find(
             (ch) => ch.name === post_channel
@@ -73,6 +53,18 @@ async function checkStream() {
 
           let streamInfo = findChannel.id
 
+          let prevGame
+          const { _data } = stream
+
+          if (_data.game_id != prevGame) {
+            console.log('games have changed!')
+          } else {
+            console.log('games are the same!')
+          }
+
+          prevGame = _data.game_id
+
+          // setting activity
           client.user
             .setActivity('twitch ❤️', {
               type: 'STREAMING',
