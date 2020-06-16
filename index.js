@@ -49,30 +49,33 @@ async function checkStream() {
       if (stream) {
         const { gameId } = stream // deconsutructing game id
 
-        if (!prevGame !== gameId) {
-          const { name } = await stream.getGame()
+        // Checking if prevGame exists, if does, continue
+        if (prevGame) {
+          if (prevGame !== gameId) {
+            const { name } = await stream.getGame()
 
-          let msg = liveEmbed(stream, name)
+            let msg = liveEmbed(stream, name)
 
-          // Finding the channel
-          let findChannel = client.channels.cache.find(
-            (ch) => ch.name === post_channel
-          )
+            // Finding the channel
+            let findChannel = client.channels.cache.find(
+              (ch) => ch.name === post_channel
+            )
 
-          let streamInfo = findChannel.id
+            let streamInfo = findChannel.id
 
-          client.channels.cache.get(`${streamInfo}`).send(msg)
+            client.channels.cache.get(`${streamInfo}`).send(msg)
 
-          // Get info of stream-info and handle message deletions
-          let getStreamInfo = client.channels.cache.get(post_channel_id)
-          await getStreamInfo.messages
-            .fetch({ limit: 30 })
-            .then((collected) => {
-              collected.forEach((msg) => {
-                msg.delete()
+            // Get info of stream-info and handle message deletions
+            let getStreamInfo = client.channels.cache.get(post_channel_id)
+            await getStreamInfo.messages
+              .fetch({ limit: 30 })
+              .then((collected) => {
+                collected.forEach((msg) => {
+                  msg.delete()
+                })
               })
-            })
-            .catch((error) => console.log(error))
+              .catch((error) => console.log(error))
+          }
         }
 
         prevGame = gameId
