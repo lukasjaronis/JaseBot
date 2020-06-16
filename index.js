@@ -58,6 +58,8 @@ async function checkStream() {
 
           let prevGame
           const { _data } = stream
+          const { gameId } = stream
+          console.log(gameId, 'game id from game id deconsutrct from stream')
 
           if (_data.game_id != prevGame) {
             console.log('games have changed!')
@@ -100,7 +102,7 @@ async function checkStream() {
 
           client.channels.cache
             .get(`${streamInfo}`)
-            .send('Come watch!', twitch_url)
+            .send(`Come watch! ${twitch_url}`)
         }
       } else {
         // Finding the channel
@@ -121,9 +123,7 @@ async function checkStream() {
           .fetch({ limit: 30 })
           .then((collected) => {
             collected.forEach((msg) => {
-              if (msg.content.startsWith(detect_text && 'Come')) {
-                msg.delete()
-              }
+              msg.delete()
             })
           })
           .catch((error) => console.log(error))
