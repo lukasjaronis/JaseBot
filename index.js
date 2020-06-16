@@ -65,6 +65,10 @@ async function checkStream() {
 
             client.channels.cache.get(`${streamInfo}`).send(msg)
 
+            client.channels.cache
+              .get(`${streamInfo}`)
+              .send(`Come watch! ${twitch_url}`)
+
             // Get info of stream-info and handle message deletions
             let getStreamInfo = client.channels.cache.get(post_channel_id)
             await getStreamInfo.messages
