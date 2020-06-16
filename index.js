@@ -51,9 +51,8 @@ async function checkStream() {
         if (gameId !== prevGame) {
           console.log(gameId, 'current')
           console.log(prevGame, 'previous')
+          prevGame = gameId
         }
-
-        prevGame = gameId
 
         if (!prevStream) {
           const token = await getToken()
