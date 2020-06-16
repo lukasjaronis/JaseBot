@@ -45,15 +45,12 @@ async function checkStream() {
     userId,
     async (stream) => {
       if (stream) {
-        let prevGame
-        const { gameId } = stream
+        let prevGame // dont know shit
+        const { gameId } = stream // deconsutructing game
 
-        if (gameId != prevGame) {
-          console.log(gameId, 'game id current')
-          console.log(prevGame, 'previous game id outside prevstream')
-          console.log('games have changed!')
-        } else {
-          console.log('games are the same!')
+        if (gameId !== prevGame) {
+          console.log(gameId, 'current')
+          console.log(prevGame, 'previous')
         }
 
         prevGame = gameId
@@ -68,19 +65,6 @@ async function checkStream() {
           )
 
           let streamInfo = findChannel.id
-
-          let prevGame
-          const { gameId } = stream
-
-          if (gameId != prevGame) {
-            console.log(gameId, 'game id current')
-            console.log(prevGame, 'previous game id')
-            console.log('games have changed!')
-          } else {
-            console.log('games are the same!')
-          }
-
-          prevGame = gameId
 
           // setting activity
           client.user
