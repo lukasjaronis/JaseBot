@@ -7,7 +7,7 @@ const hostname = '64.227.3.188'
 // const detect_text = 'lukas'
 // const twitch_url = 'https://www.twitch.tv/touchmybitcoin'
 
-Production
+// Production
 const twitch_user_id = '61050409'
 const post_channel = 'stream-info'
 const post_channel_id = '700889883056799854'
