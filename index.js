@@ -13,7 +13,7 @@ const {
   twitch_url,
 } = require('./user')
 
-const { access_token } = require('./access_token')
+const { getToken } = require('./access_token')
 
 const { liveEmbed } = require('./utils/messageEmbeds')
 
@@ -46,6 +46,9 @@ async function checkStream() {
     async (stream) => {
       if (stream) {
         if (!prevStream) {
+          const token = await getToken()
+          const { access_token } = token
+
           // Finding the channel
           let findChannel = client.channels.cache.find(
             (ch) => ch.name === post_channel
