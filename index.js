@@ -40,19 +40,20 @@ async function checkStream() {
   })
   listener.listen()
 
+  let prevGame = null
   let prevStream = null
   const subscription = await listener.subscribeToStreamChanges(
     userId,
     async (stream) => {
       if (stream) {
-        let prevGame // dont know shit
-        const { gameId } = stream // deconsutructing game
+        const { gameId } = stream // deconsutructing game id
 
-        if (gameId !== prevGame) {
+        if (prevGame !== gameId) {
+          console.log(prevGame, 'PREV')
           console.log(gameId, 'current')
-          console.log(prevGame, 'previous')
-          prevGame = gameId
         }
+
+        prevGame = gameId
 
         if (!prevStream) {
           const token = await getToken()
