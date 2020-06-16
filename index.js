@@ -45,6 +45,19 @@ async function checkStream() {
     userId,
     async (stream) => {
       if (stream) {
+        let prevGame
+        const { gameId } = stream
+
+        if (gameId != prevGame) {
+          console.log(gameId, 'game id current')
+          console.log(prevGame, 'previous game id outside prevstream')
+          console.log('games have changed!')
+        } else {
+          console.log('games are the same!')
+        }
+
+        prevGame = gameId
+
         if (!prevStream) {
           const token = await getToken()
           const { access_token } = token
@@ -105,6 +118,16 @@ async function checkStream() {
             .send(`Come watch! ${twitch_url}`)
         }
       } else {
+        // setting activity
+        client.user
+          .setActivity('everybody', {
+            type: 'WATCHING',
+          })
+          .then((presence) =>
+            console.log(`Activity set to ${presence.activities[0].name}`)
+          )
+          .catch(console.error)
+
         // Finding the channel
         let findChannel = client.channels.cache.find(
           (ch) => ch.name === post_channel
