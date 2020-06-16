@@ -1,3 +1,5 @@
+const hostname = '64.227.3.188'
+
 // Development
 const twitch_user_id = '238273761'
 const post_channel = 'testing'
@@ -13,6 +15,7 @@ const twitch_url = 'https://www.twitch.tv/touchmybitcoin'
 // const twitch_url = "https://www.twitch.tv/tastejase"
 
 module.exports = {
+  hostname,
   twitch_user_id,
   post_channel,
   detect_text,

@@ -31,15 +31,9 @@ const banEmbed = (description, setColor, user, reason, days) => {
 const cmdsEmbed = () => {
   return new Discord.MessageEmbed()
     .setTitle('Bot Commands')
-    .setDescription('The assistant has the following commands.')
+    .setDescription('Rick has the following commands.')
     .setColor('#87E5FF')
     .addFields([
-      {
-        name: '**Adminstrator**',
-        value:
-          '`!forcelive` - Sends a notifcation to everybody in #stream-info, sets the bots activity to streaming with your twitch linked, and deletes the command shortly after.',
-        inline: false,
-      },
       {
         name: '**Adminstrator**',
         value:

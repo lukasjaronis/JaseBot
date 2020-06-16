@@ -6,6 +6,7 @@ const Discord = require('discord.js')
 const { config } = require('dotenv')
 const client = new Discord.Client()
 const {
+  hostname,
   twitch_user_id,
   post_channel,
   post_channel_id,
@@ -35,7 +36,7 @@ async function checkStream() {
   )
 
   const listener = await WebHookListener.create(twitchClient, {
-    hostName: '64.227.3.188',
+    hostName: hostname,
     port: 8098,
   })
   listener.listen()
@@ -48,7 +49,7 @@ async function checkStream() {
       if (stream) {
         const { gameId } = stream // deconsutructing game id
 
-        if (prevGame !== gameId) {
+        if (!prevGame !== gameId) {
           const { name } = await stream.getGame()
 
           let msg = liveEmbed(stream, name)
