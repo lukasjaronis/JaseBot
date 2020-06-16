@@ -57,17 +57,17 @@ async function checkStream() {
           let streamInfo = findChannel.id
 
           let prevGame
-          const { _data } = stream
           const { gameId } = stream
-          console.log(gameId, 'game id from game id deconsutrct from stream')
 
-          if (_data.game_id != prevGame) {
+          if (gameId != prevGame) {
+            console.log(gameId, 'game id current')
+            console.log(prevGame, 'previous game id')
             console.log('games have changed!')
           } else {
             console.log('games are the same!')
           }
 
-          prevGame = _data.game_id
+          prevGame = gameId
 
           // setting activity
           client.user
@@ -94,9 +94,9 @@ async function checkStream() {
             return results.data
           }
 
-          const [game] = await getGame(_data.game_id).catch(console.error)
+          const [game] = await getGame(gameId).catch(console.error)
 
-          let msg = liveEmbed(_data, game.name)
+          let msg = liveEmbed(stream, game.name)
 
           client.channels.cache.get(`${streamInfo}`).send(detect_text, msg)
 
