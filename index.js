@@ -49,8 +49,7 @@ async function checkStream() {
         const { gameId } = stream // deconsutructing game id
 
         if (prevGame !== gameId) {
-          console.log(prevGame, 'PREV')
-          console.log(gameId, 'current')
+          console.log(await stream.getGame(), 'game information?')
         }
 
         prevGame = gameId
