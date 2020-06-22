@@ -41,6 +41,7 @@ async function checkStream() {
   })
   listener.listen()
 
+  let firstCall = true
   let prevGame = null
   let prevStream = null
   const subscription = await listener.subscribeToStreamChanges(
@@ -51,7 +52,8 @@ async function checkStream() {
 
         // Checking if prevGame exists, if does, continue
         if (prevGame) {
-          if (prevGame !== gameId) {
+          // if also firstCall is false
+          if (prevGame !== gameId && firstCall == false) {
             const { name } = await stream.getGame()
 
             let msg = liveEmbed(stream, name)
@@ -84,7 +86,8 @@ async function checkStream() {
 
         prevGame = gameId
 
-        if (!prevStream) {
+        // if prevSteam and first call is true run embed with @everyone
+        if (!prevStream && firstCall) {
           const token = await getToken()
           const { access_token } = token
 
@@ -129,6 +132,7 @@ async function checkStream() {
           client.channels.cache
             .get(`${streamInfo}`)
             .send(`Come watch! ${twitch_url}`)
+          firstCall = false
         }
       } else {
         // setting activity
