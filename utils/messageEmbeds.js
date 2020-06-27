@@ -59,6 +59,12 @@ const cmdsEmbed = () => {
       },
       {
         name: '**Adminstrator**',
+        value:
+          '`!raffle raffleItem` - Creates a raffle with an appended emoji. Emoji is access to the raffle which will loop through users who reacted and pick a winner. You must use quotes for the item. Example: !raffle "discord nitro boost" ',
+        inline: false,
+      },
+      {
+        name: '**Adminstrator**',
         value: '`!cmds` - Brings up available commands',
         inline: false,
       },
