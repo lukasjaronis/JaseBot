@@ -31,7 +31,7 @@ client.on('message', async (message) => {
           message.delete()
         } else {
           const raffleMessageSent = await message.channel.send(
-            `@everyone, ${message.author} has started a raffle! It will end in **1 minute**. If you want to participate hit the 🥭! \n\n This raffle is for ` +
+            `@everyone, ${message.author} has started a raffle! It will end in **1 minute**. If you want to participate hit the 🥭 \n\n This raffle is for ` +
               item
           )
 
