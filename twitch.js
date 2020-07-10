@@ -23,6 +23,8 @@ config({
 
 // The webhook listener needs an initial state, so it has to detect that the streamer is live first.
 async function checkStream() {
+  console.log('1')
+
   const userId = twitch_user_id
   const clientId = process.env.TWITCH_CLIENT_ID
   const clientSecret = process.env.TWITCH_CLIENT_SECRET
@@ -43,8 +45,11 @@ async function checkStream() {
   const subscription = await listener.subscribeToStreamChanges(
     userId,
     async (stream) => {
+      console.log('2')
       if (stream) {
         const { gameId } = stream // deconsutructing game id
+
+        console.log('3')
 
         // Checking if prevGame exists, if does, continue
         if (prevGame) {
@@ -170,4 +175,4 @@ async function checkStream() {
   return subscription
 }
 
-module.exports = { checkStream }
+module.exports = checkStream

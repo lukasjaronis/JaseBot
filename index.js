@@ -2,7 +2,7 @@ const fs = require('fs')
 const Discord = require('discord.js')
 const { config } = require('dotenv')
 const client = new Discord.Client()
-const { checkStream } = require('./twitch')
+const checkStream = require('./twitch')
 
 module.exports = client
 
