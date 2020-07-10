@@ -18,6 +18,8 @@ const { getToken } = require('./access_token')
 
 const { liveEmbed } = require('./utils/messageEmbeds')
 
+module.exports = client
+
 // ENV
 config({
   path: __dirname + '/.env',
@@ -74,7 +76,7 @@ async function checkStream() {
 
             client.channels.cache.get(`${streamInfo}`).send(msg)
 
-            await client.channels.cache
+            client.channels.cache
               .get(`${streamInfo}`)
               .send(`Come watch! ${twitch_url}`)
 
@@ -181,4 +183,5 @@ async function checkStream() {
   return subscription
 }
 
+client.login(process.env.TOKEN)
 module.exports = checkStream
