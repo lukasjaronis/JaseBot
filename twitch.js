@@ -169,4 +169,4 @@ async function checkStream() {
   return subscription
 }
 
-checkStream()
+module.exports = { checkStream }
