@@ -1,3 +1,4 @@
+const { config } = require('dotenv')
 const TwitchClient = require('twitch').default
 const WebHookListener = require('twitch-webhooks').default
 const axios = require('axios')
