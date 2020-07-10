@@ -65,7 +65,7 @@ const cmdsEmbed = () => {
       },
       {
         name: '**Adminstrator**',
-        value: '`!cmds` - Brings up available commands',
+        value: '`!rick` - Brings up available commands',
         inline: false,
       },
     ])
