@@ -35,6 +35,10 @@ async function checkStream() {
     clientSecret
   )
 
+  console.log(userId)
+  console.log(clientId)
+  console.log(clientSecret)
+
   const listener = await WebHookListener.create(twitchClient, {
     hostName: hostname,
     port: 8098,
@@ -47,7 +51,7 @@ async function checkStream() {
   const subscription = await listener.subscribeToStreamChanges(
     userId,
     async (stream) => {
-      console.log('2')
+      console.log(stream, '2')
       if (stream) {
         const { gameId } = stream // deconsutructing game id
 
