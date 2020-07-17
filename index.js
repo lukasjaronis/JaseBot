@@ -3,7 +3,6 @@ const Discord = require('discord.js')
 const { config } = require('dotenv')
 const client = new Discord.Client()
 const checkStream = require('./twitch')
-const messageMilestones = require('./MessageMilestones')
 
 module.exports = client
 
@@ -33,6 +32,5 @@ client.once('ready', () => {
 })
 
 checkStream()
-messageMilestones()
 
 client.login(process.env.TOKEN)
