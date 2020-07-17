@@ -1,10 +1,6 @@
 const client = require('../index')
 const { prefix } = require('../config.json')
-const { kickEmbed } = require('../utils/messageEmbeds')
 const accessCheck = require('../permissions')
-const { MessageReaction } = require('discord.js')
-const messageEmbeds = require('../utils/messageEmbeds')
-const user = require('../user')
 
 client.on('message', async (message) => {
   try {
