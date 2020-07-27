@@ -14,6 +14,7 @@ client.on('message', async (message) => {
       if (adminCheck) {
         let item = args[0].split('"').join('')
 
+        // const time = 3600000
         const time = 60000
 
         const filter = (reaction, user) => {
@@ -21,17 +22,17 @@ client.on('message', async (message) => {
         }
 
         if (!item) {
-          message.author.send(
+          await message.author.send(
             'You need to specifiy what the raffle is for! !raffle item'
-          )
-          message.delete()
+          ).catch(e => console.log(e))
+          message.delete().catch(e => console.log(e))
         } else {
           const raffleMessageSent = await message.channel.send(
             `@everyone, ${message.author} has started a raffle! It will end in **1 minute**. If you want to participate hit the 🥭 \n\n This raffle is for ` +
-              item
-          )
+            item
+          ).catch(e => console.log(e))
 
-          await raffleMessageSent.react('🥭')
+          await raffleMessageSent.react('🥭').catch(e => console.log(e))
 
           const collector = raffleMessageSent.createReactionCollector(filter, {
             time: time,
@@ -42,28 +43,33 @@ client.on('message', async (message) => {
           })
 
           collector.on('end', (collected) => {
+
             if (collected.size == 0) {
-              message.channel.send('Wubba Lubba Dub Dub nobody played!')
+              message.channel.send('Wubba Lubba Dub Dub nobody played!').catch(e => console.log(e))
             }
 
             collected.map((c) => {
+              console.log(c, 'c')
               const users = c.users.cache.map((user) => {
                 return user.tag
               })
               const [, ...rest] = users
               const winner = rest[Math.floor(Math.random() * rest.length)]
 
+              console.log(winner, 'winner')
+
               c.users.cache.map((user) => {
                 if (winner && user.tag === winner) {
-                  message.channel.send(user.toString() + ' has won the raffle!')
+                  message.channel.send(user.toString() + ' has won the raffle!').catch(e => console.log(e))
                 }
               })
             })
-            message.delete()
+
           })
+          message.delete().catch(e => console.log(e))
         }
       } else {
-        return message.reply("you don't have permission!")
+        return message.reply("you don't have permission!").catch(e => console.log(e))
       }
     }
   } catch (err) {
