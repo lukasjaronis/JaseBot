@@ -2,12 +2,12 @@
 
 // 700887245514866698 = Jase Role
 // 700888529000988683 = Adminstrator Role
-// 700888657976098847 = Bot Mechanic
+// 737147783768834168 = Bot Mechanic
 
 const permissions = [
   '700887245514866698',
   '700888529000988683',
-  '700888657976098847',
+  '737147783768834168'
 ]
 
 function accessCheck(message) {
