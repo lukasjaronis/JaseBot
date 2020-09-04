@@ -14,8 +14,8 @@ client.on('message', async (message) => {
       if (adminCheck) {
         let item = args[0].split('"').join('')
 
-        // 4 hours
-        const time = 10800000
+        // 2 hours
+        const time = 7200000
 
         const filter = (reaction, user) => {
           return reaction.emoji.name === '🥭' && user.id === message.author.id
@@ -28,7 +28,7 @@ client.on('message', async (message) => {
           message.delete().catch(e => console.log(e))
         } else {
           const raffleMessageSent = await message.channel.send(
-            `@everyone, ${message.author} has started a raffle! It will end in **4 hours**. If you want to participate hit the 🥭 \n\n This raffle is for ` +
+            `@everyone, ${message.author} has started a raffle! It will end in **2 hours**. If you want to participate hit the 🥭 \n\n This raffle is for ` +
             item
           ).catch(e => console.log(e))
 

@@ -1,11 +1,14 @@
+
 // Discord Role ID's for full access
 
 // 700887245514866698 = Jase Role
-// 700888529000988683 = Adminstrator Role
-// 737147783768834168 = Bot Mechanic
+// 751238703485157438 = Adminstrator Role+
+// 700888529000988683 = Adminstrator
+// 737147783768834168 = Ricks Mechanic
 
 const permissions = [
   '700887245514866698',
+  '751238703485157438',
   '700888529000988683',
   '737147783768834168'
 ]

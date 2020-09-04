@@ -1,9 +1,11 @@
+// Dev vs Production
+
 const hostname = '64.227.3.188'
 
 // Development
 // const twitch_user_id = '238273761'
 // const post_channel = 'testing'
-// const post_channel_id = '701844825326092389'
+// const post_channel_id = '751244442446332054'
 // const detect_text = 'lukas'
 // const twitch_url = 'https://www.twitch.tv/touchmybitcoin'
 
