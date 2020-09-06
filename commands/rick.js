@@ -10,8 +10,6 @@ client.on('message', async (message) => {
     const args = message.content.slice(prefix.length).split(/ +/)
     const command = args.shift().toLowerCase()
 
-    console.log(adminCheck)
-
     if (command === 'rick') {
       if (adminCheck) {
         let msg = cmdsEmbed()

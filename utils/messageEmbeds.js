@@ -60,7 +60,7 @@ const cmdsEmbed = () => {
       {
         name: '**Adminstrator**',
         value:
-          '`!raffle raffleItem` - Creates a raffle with an appended emoji. Emoji is access to the raffle which will loop through users who reacted and pick a winner. You must use quotes for the item. Example: !raffle "discord nitro boost" ',
+          '`!raffle raffleItem time` - Creates a raffle with an appended emoji. Emoji is access to the raffle which will loop through users who reacted and pick a winner. You must use quotes for the item. Example: !raffle "discord nitro boost"  Time is in milleseconds. For hours https://www.timecalculator.net/hours-to-milliseconds, for minutes https://www.timecalculator.net/minutes-to-milliseconds',
         inline: false,
       },
       {

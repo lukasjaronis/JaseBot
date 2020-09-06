@@ -6,12 +6,10 @@ const checkStream = require('./twitch')
 
 module.exports = client
 
-// ENV
 config({
   path: __dirname + '/.env',
 })
 
-// turns commands folder into the command collection
 client.commands = new Discord.Collection()
 const commandFiles = fs
   .readdirSync('./commands')
