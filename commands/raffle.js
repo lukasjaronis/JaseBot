@@ -14,6 +14,7 @@ client.on('message', async (message) => {
 
     if (command == 'raffle') {
       if (adminCheck) {
+
         let item = args[0].split('"').join('')
         let time = args[1]
 
@@ -32,63 +33,65 @@ client.on('message', async (message) => {
         }
 
         if (item && time) {
-          let tempTime = moment.duration(time);
+          let tempTime = moment.duration(time)
 
           let convertedTime
           if (tempTime.hours() == 0) {
-            convertedTime = tempTime.minutes() + " minutes"
+            convertedTime = tempTime.minutes() + " minute(s)"
           } else if (tempTime.minutes() == 0) {
-            convertedTime = tempTime.hours() + " hours"
+            convertedTime = tempTime.hours() + " hour(s)"
           } else {
-            convertedTime = tempTime.hours() + " hours " + tempTime.minutes() + " minutes"
+            convertedTime = tempTime.hours() + " hour(s) " + tempTime.minutes() + " minute(s)"
           }
 
+          // Setting up the raffle message
           const raffleMessageSent = await message.channel.send(
-            `@everyone, ${message.author} has started a raffle! It will end in ${convertedTime}. If you want to participate hit the 🥭 \n\n This raffle is for ` +
+            `${message.author} has started a raffle! It will end in ${convertedTime}. If you want to participate hit the 🥭 \n\n This raffle is for ` +
             item
           ).catch(e => console.log(e))
 
+          // Adding reaction to raffle message
           await raffleMessageSent.react('🥭').catch(e => console.log(e))
 
           const collector = raffleMessageSent.createReactionCollector(filter, {
-            time: time,
+            time: time
           })
 
           collector.on('collect', (user) => {
+            console.log(user.tag, 'users collected')
             return user.tag
           })
 
           collector.on('end', (collected) => {
 
+            console.log(collected, 'collected')
+
             if (collected.size == 0) {
-              message.channel.send('Wubba Lubba Dub Dub nobody played!').catch(e => console.log(e))
+              message.channel.send('Nobody played :(')
+            } else {
+              collected.map((c) => {
+                const users = c.users.cache.map((user) => {
+                  return user.tag
+                })
+                const [, ...rest] = users
+                const winner = rest[Math.floor(Math.random() * rest.length)]
+
+                console.log(winner, 'winner')
+  
+                c.users.cache.map((user) => {
+                  if (winner && user.tag === winner) {
+                    message.channel.send(user.toString() + ' has won the raffle!').catch(e => console.log(e))
+                  }
+                })
+              })
             }
-
-            collected.map((c) => {
-              console.log(c, 'c')
-              const users = c.users.cache.map((user) => {
-                return user.tag
-              })
-              const [, ...rest] = users
-              const winner = rest[Math.floor(Math.random() * rest.length)]
-
-              console.log(winner, 'winner')
-
-              c.users.cache.map((user) => {
-                if (winner && user.tag === winner) {
-                  message.channel.send(user.toString() + ' has won the raffle!').catch(e => console.log(e))
-                }
-              })
-            })
-
           })
-
         }
       } else {
         return message.reply("you don't have permission!").catch(e => console.log(e))
       }
       message.delete().catch(e => console.log(e))
-    } 
+    }
 
   } catch (err) {
     console.log(err)
