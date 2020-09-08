@@ -46,7 +46,7 @@ client.on('message', async (message) => {
 
           // Setting up the raffle message
           const raffleMessageSent = await message.channel.send(
-            `@everyone, ${message.author} has started a raffle! It will end in ${convertedTime}. If you want to participate hit the 🥭 \n\n This raffle is for ` +
+            `${message.author} has started a raffle! It will end in ${convertedTime}. If you want to participate hit the 🥭 \n\n This raffle is for ` +
             item
           ).catch(e => console.log(e))
 
@@ -57,9 +57,9 @@ client.on('message', async (message) => {
             time: time
           })
 
+          // Collecting user object and returing it
           collector.on('collect', (user) => {
-            console.log(user.tag, 'users collected')
-            return user.tag
+            return user
           })
 
           collector.on('end', (collected) => {
