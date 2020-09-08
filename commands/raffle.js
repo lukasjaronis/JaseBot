@@ -46,7 +46,7 @@ client.on('message', async (message) => {
 
           // Setting up the raffle message
           const raffleMessageSent = await message.channel.send(
-            `${message.author} has started a raffle! It will end in ${convertedTime}. If you want to participate hit the 🥭 \n\n This raffle is for ` +
+            `@everyone, ${message.author} has started a raffle! It will end in ${convertedTime}. If you want to participate hit the 🥭 \n\n This raffle is for ` +
             item
           ).catch(e => console.log(e))
 
