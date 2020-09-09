@@ -34,7 +34,7 @@ client.on('message', async (message) => {
           const timeDifference = endTime.diff(startTime)
           
           const giveawayMessage = await message.channel.send(
-            `${message.author} has started a raffle! If you want to participate hit the 🥭 \n\n This raffle is for **${item}** \n\n Raffle will end in **${moment.duration(endTime.diff(startTime)).asMinutes()} minute(s)** `
+            `@everyone, ${message.author} has started a raffle! If you want to participate hit the 🥭 \n\n This raffle is for **${item}** \n\n Raffle will end in **${moment.duration(endTime.diff(startTime)).asMinutes()} minute(s)** `
           ).catch(e => console.log(e))
 
           // Add reaction to message
