@@ -29,27 +29,28 @@ client.on('message', async (message) => {
         }
 
         if (item && time) {
+          let startTime;
           const endTime = moment(new Date().getTime() + Number(time))
-
+          const timeDifference = endTime.diff(startTime)
+          
           const giveawayMessage = await message.channel.send(
-            `@everyone, ${message.author} has started a raffle! If you want to participate hit the 🥭 \n\n This raffle is for **${item}** \n\n Raffle will end on **${endTime.format("MMMM Do YYYY, h:mm:ss a")}** `
+            `${message.author} has started a raffle! If you want to participate hit the 🥭 \n\n This raffle is for **${item}** \n\n Raffle will end in **${moment.duration(endTime.diff(startTime)).asMinutes()} minute(s)** `
           ).catch(e => console.log(e))
 
           // Add reaction to message
-          let startTime;
           await giveawayMessage.react('🥭').then(reacted => {
             startTime = moment(new Date().getTime());
             return reacted
           })
 
-          const timeDifference = endTime.diff(startTime)
-
           setTimeout(function () {
             const [users] = giveawayMessage.reactions.cache.map(item => {
-              const userTags = item.users.cache.map(user => {
-                return user.tag
-              })
-              return userTags
+              if (item.emoji.name === "🥭") {
+                const userTags = item.users.cache.map(user => {
+                  return user.tag
+                })
+                return userTags
+              }
             })
 
             const [, ...rest] = users
@@ -62,12 +63,14 @@ client.on('message', async (message) => {
               return message.channel.send('Nobody played.')
             } else {
               giveawayMessage.reactions.cache.map(item => {
-                const userWinningTag = item.users.cache.map(user => {
-                  if (winner === user.tag) {
-                    return message.channel.send(user.toString() + ` has won the raffle!`)
-                  }
-                })
-                return userWinningTag
+                if (item.emoji.name === "🥭") {
+                  const userWinningTag = item.users.cache.map(user => {
+                    if (winner === user.tag) {
+                      return message.channel.send(user.toString() + ` has won the raffle!`)
+                    }
+                  })
+                  return userWinningTag
+                }
               })
             }
           }, timeDifference)
