@@ -12,7 +12,7 @@ client.on('message', async (message) => {
     const args = message.content.slice(prefix.length).split(/ "|" | “|” /g)
     const command = args.shift().toLowerCase()
 
-    if (command == 'giveaway') {
+    if (command == 'raffle') {
       if (adminCheck) {
 
         let item = args[0].split('"').join('')
@@ -32,7 +32,7 @@ client.on('message', async (message) => {
           const endTime = moment(new Date().getTime() + Number(time))
 
           const giveawayMessage = await message.channel.send(
-            `@everyone, ${message.author} has started a giveaway! If you want to participate hit the 🥭 \n\n This raffle is for **${item}** \n\n Giveaway will end on **${endTime.format("MMMM Do YYYY, h:mm:ss a")}** `
+            `@everyone, ${message.author} has started a raffle! If you want to participate hit the 🥭 \n\n This raffle is for **${item}** \n\n Raffle will end on **${endTime.format("MMMM Do YYYY, h:mm:ss a")}** `
           ).catch(e => console.log(e))
 
           // Add reaction to message
@@ -64,7 +64,7 @@ client.on('message', async (message) => {
               giveawayMessage.reactions.cache.map(item => {
                 const userWinningTag = item.users.cache.map(user => {
                   if (winner === user.tag) {
-                    return message.channel.send(user.toString() + ` has won the giveaway!`)
+                    return message.channel.send(user.toString() + ` has won the raffle!`)
                   }
                 })
                 return userWinningTag
