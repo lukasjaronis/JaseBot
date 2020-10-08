@@ -41,6 +41,7 @@ async function checkStream() {
   })
   listener.listen()
 
+  let prevStream = null
   const subscription = await listener.subscribeToStreamChanges(
     userId,
     async (stream) => {
