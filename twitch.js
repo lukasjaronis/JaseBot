@@ -41,64 +41,19 @@ async function checkStream() {
   })
   listener.listen()
 
-  let firstCall = true
-  let prevGame = null
-  let prevStream = null
   const subscription = await listener.subscribeToStreamChanges(
     userId,
     async (stream) => {
       if (stream) {
-        const { gameId } = stream // deconsutructing game id
+        const { gameId } = stream
 
-        // Checking if prevGame exists, if does, continue
-        if (prevGame) {
-          // if also firstCall is false
-          if (prevGame !== gameId && firstCall == false) {
-            const { name } = await stream.getGame()
-
-            let msg = liveEmbed(stream, name)
-
-            // Finding the channel
-            let findChannel = client.channels.cache.find(
-              (ch) => ch.name === post_channel
-            )
-
-            let streamInfo = findChannel.id
-
-            client.channels.cache.get(`${streamInfo}`).send(msg)
-
-            client.channels.cache
-              .get(`${streamInfo}`)
-              .send(`Come watch! ${twitch_url}`)
-
-            // Get info of stream-info and handle message deletions
-            let getStreamInfo = client.channels.cache.get(post_channel_id)
-            await getStreamInfo.messages
-              .fetch({ limit: 30 })
-              .then((collected) => {
-                collected.forEach((msg) => {
-                  msg.delete()
-                })
-              })
-              .catch((error) => console.log(error))
-          }
-        }
-
-        prevGame = gameId
-
-        // if prevSteam and first call is true run embed with @everyone
-        if (!prevStream && firstCall) {
+        if (!prevStream) {
           const token = await getToken()
           const { access_token } = token
 
-          // Finding the channel
-          let findChannel = client.channels.cache.find(
-            (ch) => ch.name === post_channel
-          )
-
+          let findChannel = client.channels.cache.find(({ name }) => name == post_channel)
           let streamInfo = findChannel.id
 
-          // setting activity
           client.user
             .setActivity('twitch ❤️', {
               type: 'STREAMING',
@@ -132,10 +87,8 @@ async function checkStream() {
           client.channels.cache
             .get(`${streamInfo}`)
             .send(`Come watch! ${twitch_url}`)
-          firstCall = false
         }
       } else {
-        // setting activity
         client.user
           .setActivity('everybody', {
             type: 'WATCHING',
