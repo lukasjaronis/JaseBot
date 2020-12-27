@@ -21,20 +21,20 @@ const { liveEmbed } = require('./utils/messageEmbeds')
 
 module.exports = client
 
-// ENV
 config({
   path: __dirname + '/.env',
 })
 
-// The webhook listener needs an initial state, so it has to detect that the streamer is live first.
+// constants
+const userId = twitch_user_id
+const clientId = process.env.TWITCH_CLIENT_ID
+const clientSecret = process.env.TWITCH_CLIENT_SECRET
+
+console.log(userId, 'id')
+console.log(clientId, 'client id')
+console.log(clientSecret, 'client secret')
+
 async function checkStream() {
-
-  console.log('1')
-
-  const userId = twitch_user_id
-  const clientId = process.env.TWITCH_CLIENT_ID
-  const clientSecret = process.env.TWITCH_CLIENT_SECRET
-
   const authProvider = new ClientCredentialsAuthProvider(clientId, clientSecret);
   const apiClient = new ApiClient({ authProvider });
 
@@ -43,16 +43,16 @@ async function checkStream() {
     listenerPort: 8090
 }));
 
-  await listener.listen()
+  console.log(authProvider, 'auth provider?')
 
-  console.log('2')
+  listener.listen()
 
-  let prevStream = await apiClient.helix.streams.getStreamByUserId(userId);
+  let prevStream = await apiClient.helix.streams.getStreamByUserId(userId)
 
   const subscription = await listener.subscribeToStreamChanges(
     userId,
     async (stream) => {
-      console.log(stream, 'stream?')
+      console.log(stream, 'stream')
       if (stream) {
         const { gameId } = stream
 
