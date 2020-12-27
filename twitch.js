@@ -1,7 +1,7 @@
 const { config } = require('dotenv')
 const Discord = require('discord.js')
 const client = new Discord.Client()
-const { default: TwitchClient } = require('twitch')
+const  Twitchy = require('twitch')
 const WebHookListener = require('twitch-webhooks').default
 const axios = require('axios')
 
@@ -17,7 +17,6 @@ const {
 const { getToken } = require('./access_token')
 
 const { liveEmbed } = require('./utils/messageEmbeds')
-const { default: TwitchClient } = require('twitch')
 
 module.exports = client
 
@@ -31,7 +30,7 @@ async function checkStream() {
   const userId = twitch_user_id
   const clientId = process.env.TWITCH_CLIENT_ID
   const clientSecret = process.env.TWITCH_CLIENT_SECRET
-  const twitchClient = TwitchClient.withClientCredentials(
+  const twitchClient = Twitchy.withClientCredentials(
     clientId,
     clientSecret
   )
