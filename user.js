@@ -1,6 +1,6 @@
 // Dev vs Production
 
-const hostname = '138.68.93.101'
+const hostname = '3.14.65.207'
 
 // Development
 // const twitch_user_id = '238273761'
