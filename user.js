@@ -1,6 +1,6 @@
 // Dev vs Production
 
-const hostname = 'ec2-3-14-65-207.us-east-2.compute.amazonaws.com'
+const hostname = '172.31.17.224'
 
 // Development
 // const twitch_user_id = '238273761'
