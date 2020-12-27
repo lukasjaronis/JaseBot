@@ -33,7 +33,7 @@ const cmdsEmbed = () => {
     .setTitle('Bot Commands')
     .setDescription('Rick has the following commands.')
     .setColor('#87E5FF')
-    .addFields(
+    .addFields([
       {
         name: '**Adminstrator**',
         value:
@@ -68,7 +68,7 @@ const cmdsEmbed = () => {
         value: '`!rick` - Brings up available commands',
         inline: false,
       },
-    )
+    ])
 }
 
 const liveEmbed = (stream, game) => {
