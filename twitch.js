@@ -38,7 +38,7 @@ async function checkStream() {
     listenerPort: 8090
 }));
 
-  listener.listen()
+  await listener.listen()
 
   let prevStream = await apiClient.helix.streams.getStreamByUserId(userId)
 
