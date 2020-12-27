@@ -1,7 +1,7 @@
 const { config } = require('dotenv')
 const Discord = require('discord.js')
 const client = new Discord.Client()
-const TwitchClient = require('twitch').default
+const TwitchClient = require('twitch')
 const WebHookListener = require('twitch-webhooks').default
 const axios = require('axios')
 
@@ -17,6 +17,7 @@ const {
 const { getToken } = require('./access_token')
 
 const { liveEmbed } = require('./utils/messageEmbeds')
+const { default: TwitchClient } = require('twitch')
 
 module.exports = client
 
