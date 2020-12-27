@@ -106,7 +106,7 @@ async function checkStream() {
 
         let streamInfo = findChannel.id
 
-        const user = await twitchClient.helix.users.getUserById(userId)
+        const user = await apiClient.helix.users.getUserById(userId)
         client.channels.cache
           .get(`${streamInfo}`)
           .send(`${user.displayName} just went offline.`)
