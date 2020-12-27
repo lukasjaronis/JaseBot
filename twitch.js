@@ -1,8 +1,9 @@
 const { config } = require('dotenv')
 const Discord = require('discord.js')
 const client = new Discord.Client()
-const  Twitchy = require('twitch')
-const WebHookListener = require('twitch-webhooks').default
+const  { ApiClient } = require('twitch')
+const { ClientCredentialsAuthProvider } = require('twitch-auth')
+const { SimpleAdapter, WebHookListener } = require('twitch-webhooks')
 const axios = require('axios')
 
 const {
@@ -30,16 +31,16 @@ async function checkStream() {
   const userId = twitch_user_id
   const clientId = process.env.TWITCH_CLIENT_ID
   const clientSecret = process.env.TWITCH_CLIENT_SECRET
-  const twitchClient = Twitchy.withClientCredentials(
-    clientId,
-    clientSecret
-  )
 
-  const listener = await WebHookListener.create(twitchClient, {
+  const authProvider = new ClientCredentialsAuthProvider(clientId, clientSecret);
+  const apiClient = new ApiClient({ authProvider });
+
+  const listener = new WebHookListener(apiClient, new SimpleAdapter({
     hostName: hostname,
-    port: 8098,
-  })
-  listener.listen()
+    listenerPort: 8090
+}));
+
+  await listener.listen()
 
   let prevStream = null
   const subscription = await listener.subscribeToStreamChanges(
