@@ -37,23 +37,6 @@ const cmdsEmbed = () => {
       {
         name: '**Adminstrator**',
         value:
-          '`!mute @user time` - Mutes user. ~ Time: 1d, 1h, 10s, etc. (https://www.npmjs.com/package/ms)',
-        inline: false,
-      },
-      {
-        name: '**Adminstrator**',
-        value: '`!kick @user reason` - Kicks user.',
-        inline: false,
-      },
-      {
-        name: '**Adminstrator**',
-        value:
-          '`!ban @user days reason` - Ban user. Days must be whole numbers and it goes by days. Example: !ban @lukas 3 abuse (This would be a 3 day ban)',
-        inline: false,
-      },
-      {
-        name: '**Adminstrator**',
-        value:
           '`!activity activityName activityType` - Sets the bots activity. ActivityName MUST be in quotes. Example: !activity "walking the dog" playing ~ For activity you can only do playing, streaming, listening, or watching for the type.',
         inline: false,
       },

@@ -1,7 +1,7 @@
 const { config } = require('dotenv')
 const Discord = require('discord.js')
 const client = new Discord.Client()
-const  { ApiClient, HelixStream } = require('twitch')
+const  { ApiClient } = require('twitch')
 const { ClientCredentialsAuthProvider } = require('twitch-auth')
 const { SimpleAdapter, WebHookListener } = require('twitch-webhooks')
 const axios = require('axios')
@@ -25,7 +25,6 @@ config({
   path: __dirname + '/.env',
 })
 
-// constants
 const userId = twitch_user_id
 const clientId = process.env.TWITCH_CLIENT_ID
 const clientSecret = process.env.TWITCH_CLIENT_SECRET
